@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5776AA0A1B03A55B00A47781 /* BTConversationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */; };
+		5781D4D21B028D2400A7BBC2 /* BTDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D11B028D2400A7BBC2 /* BTDataSource.m */; };
+		5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D41B028D5800A7BBC2 /* BTUser.m */; };
+		5781D4D81B028DA100A7BBC2 /* BTMessageContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */; };
+		5781D4DB1B028FBE00A7BBC2 /* BTConversationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */; };
+		5781D4DE1B02930300A7BBC2 /* BTMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4DD1B02930300A7BBC2 /* BTMedia.m */; };
 		57F2E4111B017AE100FFDF10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4101B017AE100FFDF10 /* main.m */; };
 		57F2E4141B017AE100FFDF10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4131B017AE100FFDF10 /* AppDelegate.m */; };
-		57F2E4171B017AE100FFDF10 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4161B017AE100FFDF10 /* ViewController.m */; };
-		57F2E41A1B017AE100FFDF10 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F2E4181B017AE100FFDF10 /* Main.storyboard */; };
 		57F2E41C1B017AE100FFDF10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F2E41B1B017AE100FFDF10 /* Images.xcassets */; };
 		57F2E41F1B017AE100FFDF10 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57F2E41D1B017AE100FFDF10 /* LaunchScreen.xib */; };
 		57F2E42B1B017AE200FFDF10 /* com_psopher_BlocTalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E42A1B017AE200FFDF10 /* com_psopher_BlocTalkTests.m */; };
@@ -27,14 +31,23 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5776AA081B03A55B00A47781 /* BTConversationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTConversationsTableViewCell.h; sourceTree = "<group>"; };
+		5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTConversationsTableViewCell.m; sourceTree = "<group>"; };
+		5781D4D01B028D2400A7BBC2 /* BTDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSource.h; sourceTree = "<group>"; };
+		5781D4D11B028D2400A7BBC2 /* BTDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTDataSource.m; sourceTree = "<group>"; };
+		5781D4D31B028D5800A7BBC2 /* BTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTUser.h; sourceTree = "<group>"; };
+		5781D4D41B028D5800A7BBC2 /* BTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTUser.m; sourceTree = "<group>"; };
+		5781D4D61B028DA100A7BBC2 /* BTMessageContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMessageContent.h; sourceTree = "<group>"; };
+		5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMessageContent.m; sourceTree = "<group>"; };
+		5781D4D91B028FBE00A7BBC2 /* BTConversationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTConversationsTableViewController.h; path = ../BTConversationsTableViewController.h; sourceTree = "<group>"; };
+		5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTConversationsTableViewController.m; path = ../BTConversationsTableViewController.m; sourceTree = "<group>"; };
+		5781D4DC1B02930300A7BBC2 /* BTMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMedia.h; sourceTree = "<group>"; };
+		5781D4DD1B02930300A7BBC2 /* BTMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMedia.m; sourceTree = "<group>"; };
 		57F2E40B1B017AE100FFDF10 /* com.psopher.BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.psopher.BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F2E40F1B017AE100FFDF10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57F2E4101B017AE100FFDF10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		57F2E4121B017AE100FFDF10 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		57F2E4131B017AE100FFDF10 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		57F2E4151B017AE100FFDF10 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		57F2E4161B017AE100FFDF10 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		57F2E4191B017AE100FFDF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57F2E41B1B017AE100FFDF10 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		57F2E41E1B017AE100FFDF10 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		57F2E4241B017AE200FFDF10 /* com.psopher.BlocTalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = com.psopher.BlocTalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,9 +96,18 @@
 			children = (
 				57F2E4121B017AE100FFDF10 /* AppDelegate.h */,
 				57F2E4131B017AE100FFDF10 /* AppDelegate.m */,
-				57F2E4151B017AE100FFDF10 /* ViewController.h */,
-				57F2E4161B017AE100FFDF10 /* ViewController.m */,
-				57F2E4181B017AE100FFDF10 /* Main.storyboard */,
+				5781D4D91B028FBE00A7BBC2 /* BTConversationsTableViewController.h */,
+				5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */,
+				5776AA081B03A55B00A47781 /* BTConversationsTableViewCell.h */,
+				5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */,
+				5781D4D01B028D2400A7BBC2 /* BTDataSource.h */,
+				5781D4D11B028D2400A7BBC2 /* BTDataSource.m */,
+				5781D4D31B028D5800A7BBC2 /* BTUser.h */,
+				5781D4D41B028D5800A7BBC2 /* BTUser.m */,
+				5781D4DC1B02930300A7BBC2 /* BTMedia.h */,
+				5781D4DD1B02930300A7BBC2 /* BTMedia.m */,
+				5781D4D61B028DA100A7BBC2 /* BTMessageContent.h */,
+				5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */,
 				57F2E41B1B017AE100FFDF10 /* Images.xcassets */,
 				57F2E41D1B017AE100FFDF10 /* LaunchScreen.xib */,
 				57F2E40E1B017AE100FFDF10 /* Supporting Files */,
@@ -199,7 +221,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57F2E41A1B017AE100FFDF10 /* Main.storyboard in Resources */,
 				57F2E41F1B017AE100FFDF10 /* LaunchScreen.xib in Resources */,
 				57F2E41C1B017AE100FFDF10 /* Images.xcassets in Resources */,
 			);
@@ -219,9 +240,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57F2E4171B017AE100FFDF10 /* ViewController.m in Sources */,
+				5776AA0A1B03A55B00A47781 /* BTConversationsTableViewCell.m in Sources */,
+				5781D4D81B028DA100A7BBC2 /* BTMessageContent.m in Sources */,
 				57F2E4141B017AE100FFDF10 /* AppDelegate.m in Sources */,
+				5781D4D21B028D2400A7BBC2 /* BTDataSource.m in Sources */,
+				5781D4DE1B02930300A7BBC2 /* BTMedia.m in Sources */,
 				57F2E4111B017AE100FFDF10 /* main.m in Sources */,
+				5781D4DB1B028FBE00A7BBC2 /* BTConversationsTableViewController.m in Sources */,
+				5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,14 +270,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		57F2E4181B017AE100FFDF10 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				57F2E4191B017AE100FFDF10 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		57F2E41D1B017AE100FFDF10 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -299,7 +317,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -337,7 +355,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -352,6 +370,7 @@
 				INFOPLIST_FILE = com.psopher.BlocTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -362,6 +381,7 @@
 				INFOPLIST_FILE = com.psopher.BlocTalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -418,6 +438,7 @@
 				57F2E4301B017AE200FFDF10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		57F2E4311B017AE200FFDF10 /* Build configuration list for PBXNativeTarget "com.psopher.BlocTalkTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +447,7 @@
 				57F2E4331B017AE200FFDF10 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
