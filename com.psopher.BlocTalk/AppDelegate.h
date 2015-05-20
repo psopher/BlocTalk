@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class BTMPCHandler;
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+
+@property (nonatomic, strong) BTMPCHandler *mpcHandler;
 
 
 @end

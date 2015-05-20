@@ -10,6 +10,7 @@
 #import "BTMedia.h"
 #import "BTMessageContent.h"
 #import "BTUser.h"
+//#import "BTMultiPeerConnectivity.h"
 
 @interface BTConversationsTableViewCell ()
 
@@ -39,11 +40,11 @@ static NSParagraphStyle *paragraphStyle;
         self.messageLabel = [[UILabel alloc] init];
         self.messageLabel.numberOfLines = 0;
         
-        for (UIView *view in @[self.mediaImageView]) {
-            [self.contentView addSubview:view];
-        }
+//        for (UIView *view in @[self.mediaImageView]) {
+//            [self.contentView addSubview:view];
+//        }
         
-        for (UIView *view in @[self.usernameLabel, self.messageLabel]) {
+        for (UIView *view in @[self.usernameLabel, self.messageLabel, self.mediaImageView]) {
             [self.contentView addSubview:view];
         }
     }
@@ -100,20 +101,37 @@ static NSParagraphStyle *paragraphStyle;
     return sizeRect.size;
 }
 
+- (CGSize)sizeForMessageLabel:(UILabel *)label {
+    CGSize constrain = CGSizeMake(label.bounds.size.width, 2 * label.font.lineHeight);
+    CGSize size = [label.text sizeWithFont:label.font constrainedToSize:constrain lineBreakMode:UILineBreakModeWordWrap];
+    
+    return size;
+}
+
 - (void) layoutSubviews {
     [super layoutSubviews];
     
     CGFloat imageHeight = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.imageView.bounds);
-    self.mediaImageView.frame = CGRectMake(0, 0, CGRectGetWidth(self.imageView.bounds), imageHeight);
+    self.mediaImageView.frame = CGRectMake(0, 0, 70, 70);
     
     CGSize sizeOfUsernameLabel = [self sizeOfString:self.usernameLabel.attributedText];
-    self.usernameLabel.frame = CGRectMake(0, 0, CGRectGetWidth(self.contentView.bounds), sizeOfUsernameLabel.height);
     
-    CGSize sizeOfMessageLabel = [self sizeOfString:self.messageLabel.attributedText];
-    self.messageLabel.frame = CGRectMake(0, CGRectGetMaxY(self.usernameLabel.frame), CGRectGetWidth(self.bounds), sizeOfMessageLabel.height);
+    self.usernameLabel.frame = CGRectMake(70, 0, CGRectGetWidth(self.contentView.bounds), sizeOfUsernameLabel.height);
+    
+//    CGSize sizeOfMessageLabel = [self sizeOfString:self.messageLabel.attributedText];
+    
+    CGSize sizeOfMessageLabel = [self sizeForMessageLabel:self.messageLabel];
+    
+    CGFloat messageLabelHeight = 70 - sizeOfUsernameLabel.height;
+    
+//    self.messageLabel.frame = CGRectMake(70, CGRectGetMaxY(self.usernameLabel.frame), CGRectGetWidth(self.contentView.bounds), messageLabelHeight);
+    
+    CGFloat messageLabelWidth = CGRectGetWidth(self.contentView.bounds) - 80;
+    
+    self.messageLabel.frame = CGRectMake(70, CGRectGetMaxY(self.usernameLabel.frame), messageLabelWidth, messageLabelHeight);
     
     // Hide the line between cells
-    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
+//    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
 }
 
 - (void) setMediaItem:(BTMedia *)mediaItem {

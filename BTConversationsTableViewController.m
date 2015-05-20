@@ -12,12 +12,18 @@
 #import "BTMedia.h"
 #import "BTDataSource.h"
 #import "BTConversationsTableViewCell.h"
+#import "BTMPCViewController.h"
+#import "AppDelegate.h"
+#import "BTMPCHandler.h"
 
 @interface BTConversationsTableViewController ()
+
+@property (strong, nonatomic) AppDelegate *appDelegate;
 
 @end
 
 @implementation BTConversationsTableViewController
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,7 +37,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"mediaCell"];
+    UIBarButtonItem *startNewConvoButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Start New Conversation Button") style:UIBarButtonItemStyleDone target:self action:@selector(searchForPlayers:)];
+    UIBarButtonItem *optionsButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Options", @"Options Button") style:UIBarButtonItemStyleDone target:self action:@selector(optionsPressed:)];
+    
+    [self.tableView registerClass:[BTConversationsTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
+    self.navigationItem.title = NSLocalizedString(@"Conversations", @"Conversations");
+    self.navigationItem.rightBarButtonItem = startNewConvoButton;
+    self.navigationItem.leftBarButtonItem = optionsButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,6 +53,10 @@
 
 #pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    //array is your db, here we just need how many they are
+    return 1;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
@@ -62,8 +78,25 @@
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
+    CGFloat padding = 20;
+    CGFloat tableViewWidth = viewWidth - padding;
+    
     BTMedia *item = [BTDataSource sharedInstance].mediaItems[indexPath.row];
-    return [BTConversationsTableViewCell heightForMediaItem:item width:CGRectGetWidth(self.view.frame)];;
+    
+    return [BTConversationsTableViewCell heightForMediaItem:item width:tableViewWidth];;
+}
+
+- (void) startPressed:(UIBarButtonItem *)sender {
+
+    
+    
+}
+
+- (void) optionsPressed:(UIBarButtonItem *)sender {
+    BTMPCViewController *optionsVC = [[BTMPCViewController alloc] init];
+    [self.navigationController pushViewController:optionsVC animated:YES];
 }
 
 /*

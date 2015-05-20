@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BTConversationsTableViewController.h"
+#import "BTMPCHandler.h"
 
 @interface AppDelegate ()
 
@@ -18,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.mpcHandler = [[BTMPCHandler alloc] init];
+    
     self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[BTConversationsTableViewController alloc] init]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];

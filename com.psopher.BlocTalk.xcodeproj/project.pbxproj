@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		574BC5141B079B7B00D113F6 /* BTMPCHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 574BC5131B079B7B00D113F6 /* BTMPCHandler.m */; };
+		574BC5171B07A35000D113F6 /* BTMPCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 574BC5161B07A35000D113F6 /* BTMPCViewController.m */; };
 		5776AA0A1B03A55B00A47781 /* BTConversationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */; };
 		5781D4D21B028D2400A7BBC2 /* BTDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D11B028D2400A7BBC2 /* BTDataSource.m */; };
 		5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D41B028D5800A7BBC2 /* BTUser.m */; };
@@ -31,6 +33,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		574BC5121B079B7B00D113F6 /* BTMPCHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMPCHandler.h; path = ../BTMPCHandler.h; sourceTree = "<group>"; };
+		574BC5131B079B7B00D113F6 /* BTMPCHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMPCHandler.m; path = ../BTMPCHandler.m; sourceTree = "<group>"; };
+		574BC5151B07A35000D113F6 /* BTMPCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMPCViewController.h; sourceTree = "<group>"; };
+		574BC5161B07A35000D113F6 /* BTMPCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMPCViewController.m; sourceTree = "<group>"; };
 		5776AA081B03A55B00A47781 /* BTConversationsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTConversationsTableViewCell.h; sourceTree = "<group>"; };
 		5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTConversationsTableViewCell.m; sourceTree = "<group>"; };
 		5781D4D01B028D2400A7BBC2 /* BTDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTDataSource.h; sourceTree = "<group>"; };
@@ -96,6 +102,8 @@
 			children = (
 				57F2E4121B017AE100FFDF10 /* AppDelegate.h */,
 				57F2E4131B017AE100FFDF10 /* AppDelegate.m */,
+				574BC5151B07A35000D113F6 /* BTMPCViewController.h */,
+				574BC5161B07A35000D113F6 /* BTMPCViewController.m */,
 				5781D4D91B028FBE00A7BBC2 /* BTConversationsTableViewController.h */,
 				5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */,
 				5776AA081B03A55B00A47781 /* BTConversationsTableViewCell.h */,
@@ -108,6 +116,8 @@
 				5781D4DD1B02930300A7BBC2 /* BTMedia.m */,
 				5781D4D61B028DA100A7BBC2 /* BTMessageContent.h */,
 				5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */,
+				574BC5121B079B7B00D113F6 /* BTMPCHandler.h */,
+				574BC5131B079B7B00D113F6 /* BTMPCHandler.m */,
 				57F2E41B1B017AE100FFDF10 /* Images.xcassets */,
 				57F2E41D1B017AE100FFDF10 /* LaunchScreen.xib */,
 				57F2E40E1B017AE100FFDF10 /* Supporting Files */,
@@ -246,8 +256,10 @@
 				5781D4D21B028D2400A7BBC2 /* BTDataSource.m in Sources */,
 				5781D4DE1B02930300A7BBC2 /* BTMedia.m in Sources */,
 				57F2E4111B017AE100FFDF10 /* main.m in Sources */,
+				574BC5141B079B7B00D113F6 /* BTMPCHandler.m in Sources */,
 				5781D4DB1B028FBE00A7BBC2 /* BTConversationsTableViewController.m in Sources */,
 				5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */,
+				574BC5171B07A35000D113F6 /* BTMPCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
