@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		15A6BC05B662C80FD7E952CD /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D1895A2D11C68F124F21BB32 /* UICKeyChainStore.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		533601531B4A60249C4B66EC /* UICKeyChainStore.h in Headers */ = {isa = PBXBuildFile; fileRef = A57CA1199EE9F0D9005B0429 /* UICKeyChainStore.h */; };
+		6378DF46257FA4310C8111C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA21C2668E68E1DE75DFCA3 /* Foundation.framework */; };
+		9C8A6DFECD31BF552CD42449 /* Pods-com.psopher.BlocTalk-UICKeyChainStore-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E9C56B8EECC3FD129202C71 /* Pods-com.psopher.BlocTalk-UICKeyChainStore-dummy.m */; };
+		C6C1E5398A3C3203FA02F4E1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 514A1FBEDB90272730F45220 /* Security.framework */; };
+		F2A92E2DA5874EBAECF350D7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BA21C2668E68E1DE75DFCA3 /* Foundation.framework */; };
+		F81AB72640EA5D9441B31ECD /* Pods-com.psopher.BlocTalk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 49985479E40CE7342D561D1A /* Pods-com.psopher.BlocTalk-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		566A0BF452A5A58C7A0D3633 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 239C19C29D844C396B2A17E8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61F793633BDE7918D112A79C;
+			remoteInfo = "Pods-com.psopher.BlocTalk-UICKeyChainStore";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0908E9F964EC43B8EBB0DB7C /* Pods-com.psopher.BlocTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-com.psopher.BlocTalk.debug.xcconfig"; sourceTree = "<group>"; };
+		1E9C56B8EECC3FD129202C71 /* Pods-com.psopher.BlocTalk-UICKeyChainStore-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-com.psopher.BlocTalk-UICKeyChainStore-dummy.m"; sourceTree = "<group>"; };
+		23536A31F00869E84B825AFE /* Pods-com.psopher.BlocTalk-UICKeyChainStore-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-com.psopher.BlocTalk-UICKeyChainStore-prefix.pch"; sourceTree = "<group>"; };
+		3BA21C2668E68E1DE75DFCA3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		45D8EE44FAF91DBABCBCD1B5 /* Pods-com.psopher.BlocTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-com.psopher.BlocTalk.release.xcconfig"; sourceTree = "<group>"; };
+		49985479E40CE7342D561D1A /* Pods-com.psopher.BlocTalk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-com.psopher.BlocTalk-dummy.m"; sourceTree = "<group>"; };
+		4C36D35F33B0D3DC277CAA53 /* libPods-com.psopher.BlocTalk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-com.psopher.BlocTalk.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		514A1FBEDB90272730F45220 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		6C7449DE849B513E46ADC0B7 /* Pods-com.psopher.BlocTalk-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-com.psopher.BlocTalk-acknowledgements.plist"; sourceTree = "<group>"; };
+		71744AEC3B1BBB76FAFB62C7 /* Pods-com.psopher.BlocTalk-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-com.psopher.BlocTalk-environment.h"; sourceTree = "<group>"; };
+		7C9CDD359581676D182B406E /* libPods-com.psopher.BlocTalk-UICKeyChainStore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-com.psopher.BlocTalk-UICKeyChainStore.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A275619CA771D9AAB9CA909 /* Pods-com.psopher.BlocTalk-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-com.psopher.BlocTalk-resources.sh"; sourceTree = "<group>"; };
+		8BE21806ACAB5883F1502639 /* Pods-com.psopher.BlocTalk-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-com.psopher.BlocTalk-acknowledgements.markdown"; sourceTree = "<group>"; };
+		A57CA1199EE9F0D9005B0429 /* UICKeyChainStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UICKeyChainStore.h; path = Lib/UICKeyChainStore/UICKeyChainStore.h; sourceTree = "<group>"; };
+		B0812708B8093DE7C62DEC3E /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		D1895A2D11C68F124F21BB32 /* UICKeyChainStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = UICKeyChainStore.m; path = Lib/UICKeyChainStore/UICKeyChainStore.m; sourceTree = "<group>"; };
+		E90450C8B11FFFA57144D6C6 /* Pods-com.psopher.BlocTalk-UICKeyChainStore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-com.psopher.BlocTalk-UICKeyChainStore.xcconfig"; sourceTree = "<group>"; };
+		F49EE416F22558EC555716BE /* Pods-com.psopher.BlocTalk-UICKeyChainStore-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-com.psopher.BlocTalk-UICKeyChainStore-Private.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		488606773EB8181898D0BB5A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2A92E2DA5874EBAECF350D7 /* Foundation.framework in Frameworks */,
+				C6C1E5398A3C3203FA02F4E1 /* Security.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		850F24C70B0A787E8E958ACC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6378DF46257FA4310C8111C8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1483E95B76D6D7CA9976F563 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C5C7BCE9A4938FFB7390D544 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		292DD6D048647AFC1E95D681 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABF9611A5A5E4E5F4239A408 /* Pods-com.psopher.BlocTalk */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		3FFF410C94AF61C9A6F4FF79 = {
+			isa = PBXGroup;
+			children = (
+				B0812708B8093DE7C62DEC3E /* Podfile */,
+				1483E95B76D6D7CA9976F563 /* Frameworks */,
+				EC0B810C2981237A7772A26D /* Pods */,
+				8AB09C188D817852704B02F6 /* Products */,
+				292DD6D048647AFC1E95D681 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8AB09C188D817852704B02F6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4C36D35F33B0D3DC277CAA53 /* libPods-com.psopher.BlocTalk.a */,
+				7C9CDD359581676D182B406E /* libPods-com.psopher.BlocTalk-UICKeyChainStore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABF9611A5A5E4E5F4239A408 /* Pods-com.psopher.BlocTalk */ = {
+			isa = PBXGroup;
+			children = (
+				8BE21806ACAB5883F1502639 /* Pods-com.psopher.BlocTalk-acknowledgements.markdown */,
+				6C7449DE849B513E46ADC0B7 /* Pods-com.psopher.BlocTalk-acknowledgements.plist */,
+				49985479E40CE7342D561D1A /* Pods-com.psopher.BlocTalk-dummy.m */,
+				71744AEC3B1BBB76FAFB62C7 /* Pods-com.psopher.BlocTalk-environment.h */,
+				8A275619CA771D9AAB9CA909 /* Pods-com.psopher.BlocTalk-resources.sh */,
+				0908E9F964EC43B8EBB0DB7C /* Pods-com.psopher.BlocTalk.debug.xcconfig */,
+				45D8EE44FAF91DBABCBCD1B5 /* Pods-com.psopher.BlocTalk.release.xcconfig */,
+			);
+			name = "Pods-com.psopher.BlocTalk";
+			path = "Target Support Files/Pods-com.psopher.BlocTalk";
+			sourceTree = "<group>";
+		};
+		C5C7BCE9A4938FFB7390D544 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3BA21C2668E68E1DE75DFCA3 /* Foundation.framework */,
+				514A1FBEDB90272730F45220 /* Security.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		E7E408259727994E05D09228 /* UICKeyChainStore */ = {
+			isa = PBXGroup;
+			children = (
+				A57CA1199EE9F0D9005B0429 /* UICKeyChainStore.h */,
+				D1895A2D11C68F124F21BB32 /* UICKeyChainStore.m */,
+				F56D71D41106EB5A93DB0225 /* Support Files */,
+			);
+			path = UICKeyChainStore;
+			sourceTree = "<group>";
+		};
+		EC0B810C2981237A7772A26D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E7E408259727994E05D09228 /* UICKeyChainStore */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F56D71D41106EB5A93DB0225 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E90450C8B11FFFA57144D6C6 /* Pods-com.psopher.BlocTalk-UICKeyChainStore.xcconfig */,
+				F49EE416F22558EC555716BE /* Pods-com.psopher.BlocTalk-UICKeyChainStore-Private.xcconfig */,
+				1E9C56B8EECC3FD129202C71 /* Pods-com.psopher.BlocTalk-UICKeyChainStore-dummy.m */,
+				23536A31F00869E84B825AFE /* Pods-com.psopher.BlocTalk-UICKeyChainStore-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/Pods-com.psopher.BlocTalk-UICKeyChainStore";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		020C77FA4D7B62DE00FE5799 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				533601531B4A60249C4B66EC /* UICKeyChainStore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		61F793633BDE7918D112A79C /* Pods-com.psopher.BlocTalk-UICKeyChainStore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBBFFECBDFA52B98DE1208E0 /* Build configuration list for PBXNativeTarget "Pods-com.psopher.BlocTalk-UICKeyChainStore" */;
+			buildPhases = (
+				73A91F7C838C07745008D8B4 /* Sources */,
+				488606773EB8181898D0BB5A /* Frameworks */,
+				020C77FA4D7B62DE00FE5799 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-com.psopher.BlocTalk-UICKeyChainStore";
+			productName = "Pods-com.psopher.BlocTalk-UICKeyChainStore";
+			productReference = 7C9CDD359581676D182B406E /* libPods-com.psopher.BlocTalk-UICKeyChainStore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EC83C3B82C66E30F8EFDFF29 /* Pods-com.psopher.BlocTalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB04961AC0B72A3021C0C237 /* Build configuration list for PBXNativeTarget "Pods-com.psopher.BlocTalk" */;
+			buildPhases = (
+				01921B73B9E07A236368EE75 /* Sources */,
+				850F24C70B0A787E8E958ACC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD5A344C429190C60576C21D /* PBXTargetDependency */,
+			);
+			name = "Pods-com.psopher.BlocTalk";
+			productName = "Pods-com.psopher.BlocTalk";
+			productReference = 4C36D35F33B0D3DC277CAA53 /* libPods-com.psopher.BlocTalk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		239C19C29D844C396B2A17E8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+			};
+			buildConfigurationList = C0DE0AE3F766E4F95033332E /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3FFF410C94AF61C9A6F4FF79;
+			productRefGroup = 8AB09C188D817852704B02F6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC83C3B82C66E30F8EFDFF29 /* Pods-com.psopher.BlocTalk */,
+				61F793633BDE7918D112A79C /* Pods-com.psopher.BlocTalk-UICKeyChainStore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01921B73B9E07A236368EE75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F81AB72640EA5D9441B31ECD /* Pods-com.psopher.BlocTalk-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		73A91F7C838C07745008D8B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9C8A6DFECD31BF552CD42449 /* Pods-com.psopher.BlocTalk-UICKeyChainStore-dummy.m in Sources */,
+				15A6BC05B662C80FD7E952CD /* UICKeyChainStore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD5A344C429190C60576C21D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-com.psopher.BlocTalk-UICKeyChainStore";
+			target = 61F793633BDE7918D112A79C /* Pods-com.psopher.BlocTalk-UICKeyChainStore */;
+			targetProxy = 566A0BF452A5A58C7A0D3633 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		06BDF52DE27FF7338B01428E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 45D8EE44FAF91DBABCBCD1B5 /* Pods-com.psopher.BlocTalk.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1A96A733423AC298EBB78370 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F49EE416F22558EC555716BE /* Pods-com.psopher.BlocTalk-UICKeyChainStore-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-com.psopher.BlocTalk-UICKeyChainStore/Pods-com.psopher.BlocTalk-UICKeyChainStore-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		62ED90F51F41F3CF3BF29FD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		86CB765EAFDC5DAFDEDE81F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0908E9F964EC43B8EBB0DB7C /* Pods-com.psopher.BlocTalk.debug.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		87D43D97B2FD5B649BB147C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F49EE416F22558EC555716BE /* Pods-com.psopher.BlocTalk-UICKeyChainStore-Private.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-com.psopher.BlocTalk-UICKeyChainStore/Pods-com.psopher.BlocTalk-UICKeyChainStore-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B4BC8FC3B136E019C53F3613 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBBFFECBDFA52B98DE1208E0 /* Build configuration list for PBXNativeTarget "Pods-com.psopher.BlocTalk-UICKeyChainStore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				87D43D97B2FD5B649BB147C9 /* Debug */,
+				1A96A733423AC298EBB78370 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0DE0AE3F766E4F95033332E /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4BC8FC3B136E019C53F3613 /* Debug */,
+				62ED90F51F41F3CF3BF29FD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB04961AC0B72A3021C0C237 /* Build configuration list for PBXNativeTarget "Pods-com.psopher.BlocTalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				86CB765EAFDC5DAFDEDE81F5 /* Debug */,
+				06BDF52DE27FF7338B01428E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 239C19C29D844C396B2A17E8 /* Project object */;
+}

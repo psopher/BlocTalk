@@ -36,20 +36,28 @@ static UIFont *lightFont;
     [self.view addSubview:contactsButton];
     [self.view addSubview:availableContactsView];
     
-    self.swVisible = switchBar;
-    self.swVisibleLabel = switchBarLabel;
+    self.switchVisible = switchBar;
+    
+    [self.switchVisible addTarget:self action:@selector(switchHasSwitched) forControlEvents:UIControlEventValueChanged];
+    self.labelVisible = switchBarLabel;
     self.contactsListButton = contactsButton;
     self.contactsList = availableContactsView;
 
-    self.swVisibleLabel.numberOfLines = 0;
+    self.labelVisible.numberOfLines = 0;
     
-    self.swVisibleLabel.text = [NSString stringWithFormat:@"Visible to Others?"];
+    self.labelVisible.text = [NSString stringWithFormat:@"Visible to Others?"];
     [self.contactsListButton setTitle:NSLocalizedString(@"List of Available Contacts", @"List of Available Contacts") forState:UIControlStateNormal];
     [self.contactsListButton addTarget:self action:@selector(searchForPlayers:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.swVisibleLabel setFont:lightFont];
+    [self.labelVisible setFont:lightFont];
     [self.contactsListButton.titleLabel setFont:lightFont];
 
+}
+                                             
+- (void) switchHasSwitched{
+    NSLog(@"HEELLLOO");
+    [self.appDelegate.mpcHandler advertiseSelf:self.switchVisible.isOn];
+                                                 
 }
 
 - (void)viewDidLoad {
@@ -59,7 +67,8 @@ static UIFont *lightFont;
     
     [self.appDelegate.mpcHandler setupPeerWithDisplayName:[UIDevice currentDevice].name];
     [self.appDelegate.mpcHandler setupSession];
-    [self.appDelegate.mpcHandler advertiseSelf:self.swVisible.isOn];
+    [self.switchVisible setOn:true];
+    [self.appDelegate.mpcHandler advertiseSelf:self.switchVisible.isOn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(peerChangedStateWithNotification:)
@@ -123,25 +132,25 @@ static UIFont *lightFont;
     
     CGFloat viewWidth = [UIScreen mainScreen].bounds.size.width;
     CGFloat viewHeight = [UIScreen mainScreen].bounds.size.height;
-    CGFloat switchBarWidth = self.swVisible.frame.size.width;
+    CGFloat switchBarWidth = self.switchVisible.frame.size.width;
     CGFloat yOrigin = 64;
     CGFloat padding = 20;
     CGFloat switchBarCentered = (viewWidth - switchBarWidth)/2;
     CGFloat SwitchBarHeight = yOrigin + padding;
     
-    self.swVisible.frame = CGRectMake(switchBarCentered, SwitchBarHeight, switchBarWidth, self.swVisible.frame.size.height);
+    self.switchVisible.frame = CGRectMake(switchBarCentered, SwitchBarHeight, switchBarWidth, self.switchVisible.frame.size.height);
     
-    CGFloat swVisibleLabelYOrigin = CGRectGetMaxY(self.swVisible.frame) + padding;
+    CGFloat swVisibleLabelYOrigin = CGRectGetMaxY(self.switchVisible.frame) + padding;
 //    CGFloat swVisibleLabelHeight = self.swVisibleLabel.frame.size.height;
     CGFloat swVisibleLabelHeight = 10;
 //    CGFloat swVisibleLabelWidth = self.swVisibleLabel.frame.size.width;
     CGFloat swVisibleLabelWidth = 80;
     CGFloat swVisibleLabelCentered = (viewWidth - swVisibleLabelWidth)/2;
     
-    self.swVisibleLabel.frame = CGRectMake(swVisibleLabelCentered, swVisibleLabelYOrigin, swVisibleLabelWidth, swVisibleLabelHeight);
+    self.labelVisible.frame = CGRectMake(swVisibleLabelCentered, swVisibleLabelYOrigin, swVisibleLabelWidth, swVisibleLabelHeight);
 //    self.swVisibleLabel.frame = CGRectMake(swVisibleLabelCentered, swVisibleLabelYOrigin, swVisibleLabelWidth, swVisibleLabelHeight);
     
-    CGFloat contactsListButtonYOrigin = CGRectGetMaxY(self.swVisibleLabel.frame) + padding + padding;
+    CGFloat contactsListButtonYOrigin = CGRectGetMaxY(self.labelVisible.frame) + padding + padding;
 //    CGFloat contactsListButtonHeight = self.contactsListLabel.frame.size.height;
     CGFloat contactsListButtonHeight = 10;
 //    CGFloat contactsListButtonWidth = self.contactsListLabel.frame.size.width;

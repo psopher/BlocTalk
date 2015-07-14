@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *startNewConvoButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Start New Conversation Button") style:UIBarButtonItemStyleDone target:self action:@selector(searchForPlayers:)];
+    UIBarButtonItem *startNewConvoButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Start New Conversation Button") style:UIBarButtonItemStyleDone target:self action:nil];
     UIBarButtonItem *optionsButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Options", @"Options Button") style:UIBarButtonItemStyleDone target:self action:@selector(optionsPressed:)];
     
     [self.tableView registerClass:[BTConversationsTableViewCell class] forCellReuseIdentifier:@"mediaCell"];

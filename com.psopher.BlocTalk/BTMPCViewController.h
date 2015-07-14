@@ -11,10 +11,11 @@
 
 @interface BTMPCViewController : UIViewController <MCBrowserViewControllerDelegate>
 
-@property (strong, nonatomic) UISwitch *swVisible;
-@property (strong, nonatomic) UILabel *swVisibleLabel;
+@property (strong, nonatomic) UISwitch *switchVisible;
+@property (strong, nonatomic) UILabel *labelVisible;
 @property (strong, nonatomic) UIButton *contactsListButton;
 @property (strong, nonatomic) UITextView *contactsList;
+
 
 - (void)searchForPlayers:(id)sender;
 - (void)toggleVisibility:(id)sender;
