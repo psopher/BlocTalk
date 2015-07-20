@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		0787487EED8C55DD0F603115 /* libPods-com.psopher.BlocTalk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 586BBEA2D6E637D04BBA41EF /* libPods-com.psopher.BlocTalk.a */; };
+		5709B0ED1B5D4786008A3F43 /* BTConversationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5709B0EC1B5D4786008A3F43 /* BTConversationsTableViewController.m */; };
+		5709B0F01B5D485C008A3F43 /* BTParticipateInConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5709B0EF1B5D485C008A3F43 /* BTParticipateInConversationViewController.m */; };
 		574BC5141B079B7B00D113F6 /* BTMPCHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 574BC5131B079B7B00D113F6 /* BTMPCHandler.m */; };
 		574BC5171B07A35000D113F6 /* BTMPCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 574BC5161B07A35000D113F6 /* BTMPCViewController.m */; };
 		5776AA0A1B03A55B00A47781 /* BTConversationsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */; };
 		5781D4D21B028D2400A7BBC2 /* BTDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D11B028D2400A7BBC2 /* BTDataSource.m */; };
 		5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D41B028D5800A7BBC2 /* BTUser.m */; };
 		5781D4D81B028DA100A7BBC2 /* BTMessageContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */; };
-		5781D4DB1B028FBE00A7BBC2 /* BTConversationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */; };
 		5781D4DE1B02930300A7BBC2 /* BTMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4DD1B02930300A7BBC2 /* BTMedia.m */; };
 		57F2E4111B017AE100FFDF10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4101B017AE100FFDF10 /* main.m */; };
 		57F2E4141B017AE100FFDF10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4131B017AE100FFDF10 /* AppDelegate.m */; };
@@ -35,6 +36,10 @@
 
 /* Begin PBXFileReference section */
 		1E7113E718EDAC778F059A7A /* Pods-com.psopher.BlocTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-com.psopher.BlocTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-com.psopher.BlocTalk/Pods-com.psopher.BlocTalk.debug.xcconfig"; sourceTree = "<group>"; };
+		5709B0EB1B5D4786008A3F43 /* BTConversationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTConversationsTableViewController.h; sourceTree = "<group>"; };
+		5709B0EC1B5D4786008A3F43 /* BTConversationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTConversationsTableViewController.m; sourceTree = "<group>"; };
+		5709B0EE1B5D485C008A3F43 /* BTParticipateInConversationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTParticipateInConversationViewController.h; sourceTree = "<group>"; };
+		5709B0EF1B5D485C008A3F43 /* BTParticipateInConversationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTParticipateInConversationViewController.m; sourceTree = "<group>"; };
 		574BC5121B079B7B00D113F6 /* BTMPCHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTMPCHandler.h; path = ../BTMPCHandler.h; sourceTree = "<group>"; };
 		574BC5131B079B7B00D113F6 /* BTMPCHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTMPCHandler.m; path = ../BTMPCHandler.m; sourceTree = "<group>"; };
 		574BC5151B07A35000D113F6 /* BTMPCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMPCViewController.h; sourceTree = "<group>"; };
@@ -47,8 +52,6 @@
 		5781D4D41B028D5800A7BBC2 /* BTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTUser.m; sourceTree = "<group>"; };
 		5781D4D61B028DA100A7BBC2 /* BTMessageContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMessageContent.h; sourceTree = "<group>"; };
 		5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMessageContent.m; sourceTree = "<group>"; };
-		5781D4D91B028FBE00A7BBC2 /* BTConversationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BTConversationsTableViewController.h; path = ../BTConversationsTableViewController.h; sourceTree = "<group>"; };
-		5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BTConversationsTableViewController.m; path = ../BTConversationsTableViewController.m; sourceTree = "<group>"; };
 		5781D4DC1B02930300A7BBC2 /* BTMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMedia.h; sourceTree = "<group>"; };
 		5781D4DD1B02930300A7BBC2 /* BTMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMedia.m; sourceTree = "<group>"; };
 		57F2E40B1B017AE100FFDF10 /* com.psopher.BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.psopher.BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,8 +131,10 @@
 				57F2E4131B017AE100FFDF10 /* AppDelegate.m */,
 				574BC5151B07A35000D113F6 /* BTMPCViewController.h */,
 				574BC5161B07A35000D113F6 /* BTMPCViewController.m */,
-				5781D4D91B028FBE00A7BBC2 /* BTConversationsTableViewController.h */,
-				5781D4DA1B028FBE00A7BBC2 /* BTConversationsTableViewController.m */,
+				5709B0EB1B5D4786008A3F43 /* BTConversationsTableViewController.h */,
+				5709B0EC1B5D4786008A3F43 /* BTConversationsTableViewController.m */,
+				5709B0EE1B5D485C008A3F43 /* BTParticipateInConversationViewController.h */,
+				5709B0EF1B5D485C008A3F43 /* BTParticipateInConversationViewController.m */,
 				5776AA081B03A55B00A47781 /* BTConversationsTableViewCell.h */,
 				5776AA091B03A55B00A47781 /* BTConversationsTableViewCell.m */,
 				5781D4D01B028D2400A7BBC2 /* BTDataSource.h */,
@@ -313,12 +318,13 @@
 				5781D4D81B028DA100A7BBC2 /* BTMessageContent.m in Sources */,
 				57F2E4141B017AE100FFDF10 /* AppDelegate.m in Sources */,
 				5781D4D21B028D2400A7BBC2 /* BTDataSource.m in Sources */,
+				5709B0ED1B5D4786008A3F43 /* BTConversationsTableViewController.m in Sources */,
 				5781D4DE1B02930300A7BBC2 /* BTMedia.m in Sources */,
 				57F2E4111B017AE100FFDF10 /* main.m in Sources */,
 				574BC5141B079B7B00D113F6 /* BTMPCHandler.m in Sources */,
-				5781D4DB1B028FBE00A7BBC2 /* BTConversationsTableViewController.m in Sources */,
 				5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */,
 				574BC5171B07A35000D113F6 /* BTMPCViewController.m in Sources */,
+				5709B0F01B5D485C008A3F43 /* BTParticipateInConversationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

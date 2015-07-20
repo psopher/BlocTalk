@@ -10,9 +10,11 @@
 #import "AppDelegate.h"
 #import "BTMPCHandler.h"
 
-@interface BTMPCViewController ()
+@interface BTMPCViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) AppDelegate *appDelegate;
+@property (strong, nonatomic) UILocalNotification *expireNotification;
+@property (nonatomic, assign) NSUInteger taskId;
 
 @end
 
@@ -30,18 +32,23 @@ static UIFont *lightFont;
     UILabel *switchBarLabel = [[UILabel alloc] init];
     UIButton *contactsButton = [[UIButton alloc] init];
     UITextView *availableContactsView = [[UITextView alloc] init];
+    UITableView *tableViewOfContacts = [[UITableView alloc] init];
     
     [self.view addSubview:switchBar];
     [self.view addSubview:switchBarLabel];
     [self.view addSubview:contactsButton];
     [self.view addSubview:availableContactsView];
+    [self.view addSubview:tableViewOfContacts];
     
     self.switchVisible = switchBar;
-    
-    [self.switchVisible addTarget:self action:@selector(switchHasSwitched) forControlEvents:UIControlEventValueChanged];
+        [self.switchVisible addTarget:self action:@selector(switchHasSwitched) forControlEvents:UIControlEventValueChanged];
     self.labelVisible = switchBarLabel;
     self.contactsListButton = contactsButton;
     self.contactsList = availableContactsView;
+    
+    self.tableOfContacts = tableViewOfContacts;
+    self.tableOfContacts.dataSource = self;
+    self.tableOfContacts.delegate = self;
 
     self.labelVisible.numberOfLines = 0;
     
@@ -62,6 +69,8 @@ static UIFont *lightFont;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view addSubview:self.tableOfContacts];
     
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
@@ -85,6 +94,8 @@ static UIFont *lightFont;
     self.contactsList.layer.borderWidth = 1.0;
     
     self.contactsList.backgroundColor = [UIColor whiteColor];
+    
+    UITableViewCell *cell =[self.tableOfContacts dequeueReusableCellWithIdentifier:@"MyIdentifier"];
 }
 
 - (void)searchForPlayers:(id)sender {
@@ -110,21 +121,48 @@ static UIFont *lightFont;
     // Get the state of the peer.
     int state = [[[notification userInfo] objectForKey:@"state"] intValue];
     
+    if (state == MCSessionStateConnecting) {
+        NSLog(@"Connecting");
+    }
+    
+    if (state == MCSessionStateConnected) {
+        NSLog(@"Connected");
+    }
+    
+    if (state == MCSessionStateNotConnected) {
+        NSLog(@"Not Connected");
+    }
+    
     // We care only for the Connected and the Not Connected states.
-    // The Connecting state will be simply ignored.
+    
+    //This Code works below to add Connected Peers to a Text View
+//    if (state != MCSessionStateConnecting) {
+//        // We'll just display all the connected peers (players) to the text view.
+//        NSMutableArray *allPlayers = [NSMutableArray array];
+//        
+//        for (int i  = 0; i < self.appDelegate.mpcHandler.session.connectedPeers.count; i++) {
+//            NSString *displayName = [[self.appDelegate.mpcHandler.session.connectedPeers objectAtIndex:i] displayName];
+//            [allPlayers addObject:displayName];
+//        }
+//        
+//        for (int i = 0; i < allPlayers.count; i++) {
+//            [self.contactsList setText:allPlayers[i]];
+//        }
+//    }
+    
+    //Testing Code as a TableView
     if (state != MCSessionStateConnecting) {
         // We'll just display all the connected peers (players) to the text view.
-        NSString *allPlayers = @"Other players connected with:\n\n";
+        NSMutableArray *allPlayers = [NSMutableArray array];
         
-        for (int i = 0; i < self.appDelegate.mpcHandler.session.connectedPeers.count; i++) {
+        for (int i  = 0; i < self.appDelegate.mpcHandler.session.connectedPeers.count; i++) {
             NSString *displayName = [[self.appDelegate.mpcHandler.session.connectedPeers objectAtIndex:i] displayName];
-            
-            allPlayers = [allPlayers stringByAppendingString:@"\n"];
-            allPlayers = [allPlayers stringByAppendingString:displayName];
+            [allPlayers addObject:displayName];
         }
         
-        [self.contactsList setText:allPlayers];
+        self.listOfConnectedDisplayNames = allPlayers;
     }
+
 }
 
 - (void) viewWillLayoutSubviews {
@@ -163,7 +201,8 @@ static UIFont *lightFont;
     CGFloat contactListYOrigin = CGRectGetMaxY(self.contactsListButton.frame) + padding;
     CGFloat contactListHeight = viewHeight - contactListYOrigin - padding;
     
-    self.contactsList.frame = CGRectMake(padding, contactListYOrigin, contactListWidth, contactListHeight);
+//    self.contactsList.frame = CGRectMake(padding, contactListYOrigin, contactListWidth, contactListHeight);
+    self.tableOfContacts.frame = CGRectMake(padding, contactListYOrigin, contactListWidth, contactListHeight);
     
     
 }
@@ -172,6 +211,110 @@ static UIFont *lightFont;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma Dealing with Disconnects
+
+- (void) createExpireNotification
+{
+    [self killExpireNotification];
+    
+    if (self.appDelegate.mpcHandler.session.connectedPeers.count != 0) // if peers connected, setup kill switch
+    {
+        NSTimeInterval gracePeriod = 20.0f;
+        
+        // create notification that will get the user back into the app when the background process time is about to expire
+        NSTimeInterval msgTime = UIApplication.sharedApplication.backgroundTimeRemaining - gracePeriod;
+        UILocalNotification* n = [[UILocalNotification alloc] init];
+        self.expireNotification = n;
+        self.expireNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:msgTime];
+        self.expireNotification.alertBody = [NSString stringWithFormat:@"Text_MultiPeerIsAboutToExpire"];
+        self.expireNotification.soundName = UILocalNotificationDefaultSoundName;
+        self.expireNotification.applicationIconBadgeNumber = 1;
+        
+        [UIApplication.sharedApplication scheduleLocalNotification:self.expireNotification];
+    }
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    //array is your db, here we just need how many they are
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#warning Incomplete method implementation.
+    
+    return self.listOfConnectedDisplayNames.count;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    static NSString *MyIdentifier = @"MyIdentifier";
+    
+    UITableViewCell *cell =[self.tableOfContacts dequeueReusableCellWithIdentifier:MyIdentifier];
+//    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    
+    if (cell == nil){
+//        UITableViewCell *cell = [self.tableOfContacts dequeueReusableCellWithIdentifier:MyIdentifier forIndexPath:indexPath];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    
+        cell.textLabel.text=[self.listOfConnectedDisplayNames objectAtIndex:indexPath.row];
+    }
+    
+    return cell;
+}
+
+//- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
+//    CGFloat padding = 20;
+//    CGFloat tableViewWidth = viewWidth - padding;
+//    
+//    BTMedia *item = [BTDataSource sharedInstance].mediaItems[indexPath.row];
+//    
+//    return [BTConversationsTableViewCell heightForMediaItem:item width:tableViewWidth];;
+//}
+
+- (void) killExpireNotification
+{
+    if (self.expireNotification != nil)
+    {
+        [UIApplication.sharedApplication cancelLocalNotification:self.expireNotification];
+        self.expireNotification = nil;
+    }
+}
+
+- (void) applicationWillEnterBackground
+{
+//    self.taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^
+//                   {
+//                       [self shutdownMultiPeerStuff];
+//                       [[UIApplication sharedApplication] endBackgroundTask:self.taskId];
+//                       self.taskId = UIBackgroundTaskInvalid;
+//                   }];
+//    [self createExpireNotification];
+}
+
+- (void) applicationWillEnterForeground
+{
+    [self killExpireNotification];
+    if (self.taskId != UIBackgroundTaskInvalid)
+    {
+        [[UIApplication sharedApplication] endBackgroundTask:self.taskId];
+        self.taskId = UIBackgroundTaskInvalid;
+    }
+}
+
+- (void) applicationWillTerminate
+{
+//    [self killExpireNotification];
+//    [self stop]; // shutdown multi-peer
+}
+
 
 /*
 #pragma mark - Navigation

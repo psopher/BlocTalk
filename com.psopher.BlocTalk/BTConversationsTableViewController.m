@@ -15,6 +15,7 @@
 #import "BTMPCViewController.h"
 #import "AppDelegate.h"
 #import "BTMPCHandler.h"
+#import "BTMPCViewController.h"
 
 @interface BTConversationsTableViewController ()
 
@@ -36,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     
     UIBarButtonItem *startNewConvoButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Start", @"Start New Conversation Button") style:UIBarButtonItemStyleDone target:self action:nil];
     UIBarButtonItem *optionsButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Options", @"Options Button") style:UIBarButtonItemStyleDone target:self action:@selector(optionsPressed:)];
