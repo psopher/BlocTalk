@@ -21,5 +21,6 @@
 
 - (void)searchForPlayers:(id)sender;
 - (void) switchHasSwitched;
+- (void) startConversation;
 
 @end

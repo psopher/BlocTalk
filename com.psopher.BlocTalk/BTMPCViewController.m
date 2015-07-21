@@ -9,12 +9,14 @@
 #import "BTMPCViewController.h"
 #import "AppDelegate.h"
 #import "BTMPCHandler.h"
+#import "BTParticipateInConversationViewController.h"
 
 @interface BTMPCViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) UILocalNotification *expireNotification;
 @property (nonatomic, assign) NSUInteger taskId;
+@property (nonatomic, strong) BTParticipateInConversationViewController *participateViewController;
 
 @end
 
@@ -267,6 +269,35 @@ static UIFont *lightFont;
     
     return cell;
 }
+
+- (void)startConversation{
+    BTParticipateInConversationViewController *participateVC = [[BTParticipateInConversationViewController alloc] init];
+    [self.navigationController pushViewController:participateVC animated:YES];
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSInteger row = [indexPath row];
+    
+    NSString *person = [NSString stringWithFormat:@"%@", self.listOfConnectedDisplayNames[row]];
+    
+    if (self.participateViewController == nil) {
+        self.participateViewController = [[BTParticipateInConversationViewController alloc] init];
+        [self.navigationController pushViewController:self.participateViewController animated:YES];
+        self.participateViewController.title = person;
+    }
+}
+
+//- (BTParticipateInConversationViewController *)participateViewController
+//{
+//    if (!participateViewController)
+//    {
+//        BTParticipateInConversationViewController = [[BTParticipateInConversationViewController alloc] init];
+//    }
+//    
+//    return BTParticipateInConversationViewController;
+//}
+
 
 //- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    
