@@ -98,6 +98,7 @@ static UIFont *lightFont;
     self.contactsList.backgroundColor = [UIColor whiteColor];
     
     UITableViewCell *cell =[self.tableOfContacts dequeueReusableCellWithIdentifier:@"MyIdentifier"];
+    [self.tableOfContacts reloadData];
 }
 
 - (void)searchForPlayers:(id)sender {
@@ -135,9 +136,8 @@ static UIFont *lightFont;
         NSLog(@"Not Connected");
     }
     
-    // We care only for the Connected and the Not Connected states.
     
-    //This Code works below to add Connected Peers to a Text View
+    //Testing Code as a TableView
 //    if (state != MCSessionStateConnecting) {
 //        // We'll just display all the connected peers (players) to the text view.
 //        NSMutableArray *allPlayers = [NSMutableArray array];
@@ -147,24 +147,14 @@ static UIFont *lightFont;
 //            [allPlayers addObject:displayName];
 //        }
 //        
-//        for (int i = 0; i < allPlayers.count; i++) {
-//            [self.contactsList setText:allPlayers[i]];
-//        }
+//        self.listOfConnectedDisplayNames = allPlayers;
+        [self.tableOfContacts reloadData];
 //    }
-    
-    //Testing Code as a TableView
-    if (state != MCSessionStateConnecting) {
-        // We'll just display all the connected peers (players) to the text view.
-        NSMutableArray *allPlayers = [NSMutableArray array];
-        
-        for (int i  = 0; i < self.appDelegate.mpcHandler.session.connectedPeers.count; i++) {
-            NSString *displayName = [[self.appDelegate.mpcHandler.session.connectedPeers objectAtIndex:i] displayName];
-            [allPlayers addObject:displayName];
-        }
-        
-        self.listOfConnectedDisplayNames = allPlayers;
-    }
 
+}
+
+- (NSArray*) getConnectedPeers {
+    return self.appDelegate.mpcHandler.session.connectedPeers;
 }
 
 - (void) viewWillLayoutSubviews {
@@ -247,7 +237,7 @@ static UIFont *lightFont;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     
-    return self.listOfConnectedDisplayNames.count;
+    return [self getConnectedPeers].count;
 }
 
 
@@ -264,7 +254,7 @@ static UIFont *lightFont;
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
 //        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
-        cell.textLabel.text=[self.listOfConnectedDisplayNames objectAtIndex:indexPath.row];
+        cell.textLabel.text=[[[self getConnectedPeers] objectAtIndex:indexPath.row] displayName];
     }
     
     return cell;
@@ -279,7 +269,7 @@ static UIFont *lightFont;
     
     NSInteger row = [indexPath row];
     
-    NSString *person = [NSString stringWithFormat:@"%@", self.listOfConnectedDisplayNames[row]];
+    NSString *person = [[self getConnectedPeers][row] displayName];
     
     if (self.participateViewController == nil) {
         self.participateViewController = [[BTParticipateInConversationViewController alloc] init];

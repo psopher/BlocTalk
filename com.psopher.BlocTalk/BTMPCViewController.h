@@ -16,7 +16,7 @@
 @property (strong, nonatomic) UIButton *contactsListButton;
 @property (strong, nonatomic) UITextView *contactsList;
 @property (strong, nonatomic) UITableView *tableOfContacts;
-@property (strong, nonatomic) NSMutableArray *listOfConnectedDisplayNames;
+//@property (strong, nonatomic) NSMutableArray *listOfConnectedDisplayNames;
 
 
 - (void)searchForPlayers:(id)sender;

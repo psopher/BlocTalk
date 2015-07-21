@@ -11,16 +11,23 @@
 @implementation BTMPCHandler
 
 - (void)setupPeerWithDisplayName:(NSString *)displayName {
-    self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
+    if (self.peerID == nil) {
+        self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
+    }
+//    self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
 }
 
 - (void)setupSession {
-    self.session = [[MCSession alloc] initWithPeer:self.peerID];
-    self.session.delegate = self;
+    if (self.session == nil) {
+        self.session = [[MCSession alloc] initWithPeer:self.peerID];
+        self.session.delegate = self;
+    }
 }
 
 - (void)setupBrowser {
-    self.browser = [[MCBrowserViewController alloc] initWithServiceType:@"BT-MPCList" session:_session];
+    if (self.browser == nil) {
+        self.browser = [[MCBrowserViewController alloc] initWithServiceType:@"BT-MPCList" session:_session];
+    }
 }
 
 - (void)advertiseSelf:(BOOL)advertise {
