@@ -11,6 +11,7 @@
 #import "BTMessageContent.h"
 #import "BTMedia.h"
 //#import "BTMultiPeerConnectivity.h"
+#import <UICKeyChainStore.h>
 
 @interface BTDataSource ()
 
@@ -71,11 +72,11 @@
 - (BTUser *) randomUser {
     BTUser *user = [[BTUser alloc] init];
     
-    user.userName = [self randomStringOfLength:arc4random_uniform(10)];
+    user.username = [self randomStringOfLength:arc4random_uniform(10)];
     
     NSString *firstName = [self randomStringOfLength:arc4random_uniform(7)];
     NSString *lastName = [self randomStringOfLength:arc4random_uniform(12)];
-    user.fullName = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
+    user.username = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
     
     return user;
 }

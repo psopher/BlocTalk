@@ -7,6 +7,7 @@
 //
 
 #import "BTMPCHandler.h"
+#import <UICKeyChainStore.h>
 
 @implementation BTMPCHandler
 
@@ -14,7 +15,6 @@
     if (self.peerID == nil) {
         self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
     }
-//    self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
 }
 
 - (void)setupSession {
@@ -28,6 +28,7 @@
     if (self.browser == nil) {
         self.browser = [[MCBrowserViewController alloc] initWithServiceType:@"BT-MPCList" session:_session];
     }
+    self.browser.delegate = self;
 }
 
 - (void)advertiseSelf:(BOOL)advertise {
@@ -40,6 +41,11 @@
         self.advertiser = nil;
     }
 }
+
+//- (void)updateDelegate
+//{
+//    [self.delegate sessionDidChangeState];
+//}
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
@@ -83,5 +89,6 @@
 - (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID {
     
 }
+
 
 @end

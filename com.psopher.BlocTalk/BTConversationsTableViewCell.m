@@ -71,7 +71,7 @@ static NSParagraphStyle *paragraphStyle;
     CGFloat usernameFontSize = 15;
     
     // Make a string that says "username text"
-    NSString *baseString = [NSString stringWithFormat:@"%@", self.mediaItem.user.userName];
+    NSString *baseString = [NSString stringWithFormat:@"%@", self.mediaItem.user.username];
     
     // Make an attributed string, with the "username" bold
     NSMutableAttributedString *mutableUsernameString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : [boldFont fontWithSize:usernameFontSize], NSParagraphStyleAttributeName : paragraphStyle}];

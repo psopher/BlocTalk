@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "BTMPCHandler.h"
 #import "BTParticipateInConversationViewController.h"
+#import <UICKeyChainStore.h>
 
 @interface BTMPCViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -136,20 +137,7 @@ static UIFont *lightFont;
         NSLog(@"Not Connected");
     }
     
-    
-    //Testing Code as a TableView
-//    if (state != MCSessionStateConnecting) {
-//        // We'll just display all the connected peers (players) to the text view.
-//        NSMutableArray *allPlayers = [NSMutableArray array];
-//        
-//        for (int i  = 0; i < self.appDelegate.mpcHandler.session.connectedPeers.count; i++) {
-//            NSString *displayName = [[self.appDelegate.mpcHandler.session.connectedPeers objectAtIndex:i] displayName];
-//            [allPlayers addObject:displayName];
-//        }
-//        
-//        self.listOfConnectedDisplayNames = allPlayers;
         [self.tableOfContacts reloadData];
-//    }
 
 }
 
@@ -171,19 +159,14 @@ static UIFont *lightFont;
     self.switchVisible.frame = CGRectMake(switchBarCentered, SwitchBarHeight, switchBarWidth, self.switchVisible.frame.size.height);
     
     CGFloat swVisibleLabelYOrigin = CGRectGetMaxY(self.switchVisible.frame) + padding;
-//    CGFloat swVisibleLabelHeight = self.swVisibleLabel.frame.size.height;
     CGFloat swVisibleLabelHeight = 10;
-//    CGFloat swVisibleLabelWidth = self.swVisibleLabel.frame.size.width;
     CGFloat swVisibleLabelWidth = 80;
     CGFloat swVisibleLabelCentered = (viewWidth - swVisibleLabelWidth)/2;
     
     self.labelVisible.frame = CGRectMake(swVisibleLabelCentered, swVisibleLabelYOrigin, swVisibleLabelWidth, swVisibleLabelHeight);
-//    self.swVisibleLabel.frame = CGRectMake(swVisibleLabelCentered, swVisibleLabelYOrigin, swVisibleLabelWidth, swVisibleLabelHeight);
     
     CGFloat contactsListButtonYOrigin = CGRectGetMaxY(self.labelVisible.frame) + padding + padding;
-//    CGFloat contactsListButtonHeight = self.contactsListLabel.frame.size.height;
     CGFloat contactsListButtonHeight = 10;
-//    CGFloat contactsListButtonWidth = self.contactsListLabel.frame.size.width;
     CGFloat contactsListButtonWidth = 120;
     CGFloat contactsListButtonCentered = (viewWidth - contactsListButtonWidth)/2;
     
@@ -193,7 +176,6 @@ static UIFont *lightFont;
     CGFloat contactListYOrigin = CGRectGetMaxY(self.contactsListButton.frame) + padding;
     CGFloat contactListHeight = viewHeight - contactListYOrigin - padding;
     
-//    self.contactsList.frame = CGRectMake(padding, contactListYOrigin, contactListWidth, contactListHeight);
     self.tableOfContacts.frame = CGRectMake(padding, contactListYOrigin, contactListWidth, contactListHeight);
     
     
@@ -247,12 +229,9 @@ static UIFont *lightFont;
     static NSString *MyIdentifier = @"MyIdentifier";
     
     UITableViewCell *cell =[self.tableOfContacts dequeueReusableCellWithIdentifier:MyIdentifier];
-//    UITableViewCell *cell =[tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
     if (cell == nil){
-//        UITableViewCell *cell = [self.tableOfContacts dequeueReusableCellWithIdentifier:MyIdentifier forIndexPath:indexPath];
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
         cell.textLabel.text=[[[self getConnectedPeers] objectAtIndex:indexPath.row] displayName];
     }

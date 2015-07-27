@@ -5,7 +5,7 @@ This application makes use of the following third party libraries:
 
 
 MIT License
-Copyright (c) 2014 Jesse Squires
+Copyright (c) 2013-present Jesse Squires
 
 http://www.hexedbits.com
 

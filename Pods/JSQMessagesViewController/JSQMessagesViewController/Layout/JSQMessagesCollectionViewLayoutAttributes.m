@@ -1,6 +1,6 @@
 //
 //  Created by Jesse Squires
-//  http://www.hexedbits.com
+//  http://www.jessesquires.com
 //
 //
 //  Documentation
@@ -17,6 +17,15 @@
 //
 
 #import "JSQMessagesCollectionViewLayoutAttributes.h"
+
+
+@interface JSQMessagesCollectionViewLayoutAttributes ()
+
+- (CGSize)jsq_correctedAvatarSizeFromSize:(CGSize)size;
+
+- (CGFloat)jsq_correctedLabelHeightForHeight:(CGFloat)height;
+
+@end
 
 
 @implementation JSQMessagesCollectionViewLayoutAttributes
@@ -36,40 +45,52 @@
     _messageBubbleFont = messageBubbleFont;
 }
 
-- (void)setMessageBubbleLeftRightMargin:(CGFloat)messageBubbleLeftRightMargin
+- (void)setMessageBubbleContainerViewWidth:(CGFloat)messageBubbleContainerViewWidth
 {
-    NSParameterAssert(messageBubbleLeftRightMargin >= 0.0f);
-    _messageBubbleLeftRightMargin = ceilf(messageBubbleLeftRightMargin);
+    NSParameterAssert(messageBubbleContainerViewWidth > 0.0f);
+    _messageBubbleContainerViewWidth = ceilf(messageBubbleContainerViewWidth);
 }
 
 - (void)setIncomingAvatarViewSize:(CGSize)incomingAvatarViewSize
 {
     NSParameterAssert(incomingAvatarViewSize.width >= 0.0f && incomingAvatarViewSize.height >= 0.0f);
-    _incomingAvatarViewSize = CGSizeMake(ceil(incomingAvatarViewSize.width), ceilf(incomingAvatarViewSize.height));
+    _incomingAvatarViewSize = [self jsq_correctedAvatarSizeFromSize:incomingAvatarViewSize];
 }
 
 - (void)setOutgoingAvatarViewSize:(CGSize)outgoingAvatarViewSize
 {
     NSParameterAssert(outgoingAvatarViewSize.width >= 0.0f && outgoingAvatarViewSize.height >= 0.0f);
-    _outgoingAvatarViewSize = CGSizeMake(ceil(outgoingAvatarViewSize.width), ceilf(outgoingAvatarViewSize.height));
+    _outgoingAvatarViewSize = [self jsq_correctedAvatarSizeFromSize:outgoingAvatarViewSize];
 }
 
 - (void)setCellTopLabelHeight:(CGFloat)cellTopLabelHeight
 {
     NSParameterAssert(cellTopLabelHeight >= 0.0f);
-    _cellTopLabelHeight = floorf(cellTopLabelHeight);
+    _cellTopLabelHeight = [self jsq_correctedLabelHeightForHeight:cellTopLabelHeight];
 }
 
 - (void)setMessageBubbleTopLabelHeight:(CGFloat)messageBubbleTopLabelHeight
 {
     NSParameterAssert(messageBubbleTopLabelHeight >= 0.0f);
-    _messageBubbleTopLabelHeight = floorf(messageBubbleTopLabelHeight);
+    _messageBubbleTopLabelHeight = [self jsq_correctedLabelHeightForHeight:messageBubbleTopLabelHeight];
 }
 
 - (void)setCellBottomLabelHeight:(CGFloat)cellBottomLabelHeight
 {
     NSParameterAssert(cellBottomLabelHeight >= 0.0f);
-    _cellBottomLabelHeight = floorf(cellBottomLabelHeight);
+    _cellBottomLabelHeight = [self jsq_correctedLabelHeightForHeight:cellBottomLabelHeight];
+}
+
+#pragma mark - Utilities
+
+- (CGSize)jsq_correctedAvatarSizeFromSize:(CGSize)size
+{
+    return CGSizeMake(ceilf(size.width), ceilf(size.height));
+}
+
+- (CGFloat)jsq_correctedLabelHeightForHeight:(CGFloat)height
+{
+    return ceilf(height);
 }
 
 #pragma mark - NSObject
@@ -92,7 +113,7 @@
             || !UIEdgeInsetsEqualToEdgeInsets(layoutAttributes.textViewTextContainerInsets, self.textViewTextContainerInsets)
             || !CGSizeEqualToSize(layoutAttributes.incomingAvatarViewSize, self.incomingAvatarViewSize)
             || !CGSizeEqualToSize(layoutAttributes.outgoingAvatarViewSize, self.outgoingAvatarViewSize)
-            || (int)layoutAttributes.messageBubbleLeftRightMargin != (int)self.messageBubbleLeftRightMargin
+            || (int)layoutAttributes.messageBubbleContainerViewWidth != (int)self.messageBubbleContainerViewWidth
             || (int)layoutAttributes.cellTopLabelHeight != (int)self.cellTopLabelHeight
             || (int)layoutAttributes.messageBubbleTopLabelHeight != (int)self.messageBubbleTopLabelHeight
             || (int)layoutAttributes.cellBottomLabelHeight != (int)self.cellBottomLabelHeight) {
@@ -119,7 +140,7 @@
     }
     
     copy.messageBubbleFont = self.messageBubbleFont;
-    copy.messageBubbleLeftRightMargin = self.messageBubbleLeftRightMargin;
+    copy.messageBubbleContainerViewWidth = self.messageBubbleContainerViewWidth;
     copy.textViewFrameInsets = self.textViewFrameInsets;
     copy.textViewTextContainerInsets = self.textViewTextContainerInsets;
     copy.incomingAvatarViewSize = self.incomingAvatarViewSize;
@@ -127,6 +148,7 @@
     copy.cellTopLabelHeight = self.cellTopLabelHeight;
     copy.messageBubbleTopLabelHeight = self.messageBubbleTopLabelHeight;
     copy.cellBottomLabelHeight = self.cellBottomLabelHeight;
+    
     return copy;
 }
 
