@@ -16,6 +16,8 @@
 @property (nonatomic, strong) MCBrowserViewController *browser;
 @property (nonatomic, strong) MCAdvertiserAssistant *advertiser;
 
+//@property (nonatomic, strong) NSString *numberOfMessagesInCurrentChannel;
+
 - (void)setupPeerWithDisplayName:(NSString *)displayName;
 - (void)setupSession;
 - (void)setupBrowser;

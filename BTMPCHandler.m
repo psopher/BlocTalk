@@ -11,35 +11,67 @@
 
 @implementation BTMPCHandler
 
-- (void)setupPeerWithDisplayName:(NSString *)displayName {
-    if (self.peerID == nil) {
-        self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
+-(instancetype)init{
+    self = [super init];
+    
+    if (self) {
+        self.peerID = nil;
+        self.session = nil;
+        self.browser = nil;
+        self.advertiser = nil;
+//        self.numberOfMessagesInCurrentChannel = [@0 stringValue];
     }
+    
+    return self;
+}
+
+- (void)setupPeerWithDisplayName:(NSString *)displayName {
+//    if (self.peerID == nil) {
+        self.peerID = [[MCPeerID alloc] initWithDisplayName:displayName];
+//    }
 }
 
 - (void)setupSession {
-    if (self.session == nil) {
+//    if (self.session == nil) {
         self.session = [[MCSession alloc] initWithPeer:self.peerID];
         self.session.delegate = self;
-    }
+//    }
 }
 
 - (void)setupBrowser {
-    if (self.browser == nil) {
+//    if (self.browser == nil) {
         self.browser = [[MCBrowserViewController alloc] initWithServiceType:@"BT-MPCList" session:_session];
-    }
+//    }
     self.browser.delegate = self;
 }
 
 - (void)advertiseSelf:(BOOL)advertise {
     if (advertise) {
+//        NSDictionary *elements = @{ @"numberOfMessagesInCurrentChannel": self.numberOfMessagesInCurrentChannel};
         self.advertiser = [[MCAdvertiserAssistant alloc] initWithServiceType:@"BT-MPCList" discoveryInfo:nil session:self.session];
+        self.advertiser.delegate = self;
         [self.advertiser start];
         
     } else {
         [self.advertiser stop];
         self.advertiser = nil;
     }
+}
+
+- (void) disconnect
+{
+    
+    [self.advertiser stop];
+    self.advertiser.delegate = nil;
+    self.advertiser = nil;
+    
+//    [self.browser stopBrowsingForPeers];
+    self.browser.delegate = nil;
+    self.browser = nil;
+    
+    [self.session disconnect];
+    self.session.delegate = nil;
+    self.session = nil;
 }
 
 //- (void)updateDelegate
@@ -59,6 +91,8 @@
     });
     
 }
+
+
 
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID {
     
