@@ -1,5 +1,5 @@
 //
-//  BTParticipateInConversationViewController.h
+//  BTChatViewController.h
 //  com.psopher.BlocTalk
 //
 //  Created by Philip Sopher on 7/20/15.
@@ -8,13 +8,14 @@
 
 #import <JSQMessagesViewController.h>
 #import <JSQMessages.h>
-#import "BTDemoModelData.h"
+#import "BTDataSource.h"
 
 #import "NSUserDefaults+DemoSettings.h"
 
-@interface BTParticipateInConversationViewController : JSQMessagesViewController
+@interface BTChatViewController : JSQMessagesViewController
 
-@property (strong, nonatomic) BTDemoModelData *demoData;
+//@property (strong, nonatomic) BTDemoModelData *demoData;
 @property (strong, nonatomic) NSString *channelName;
+@property (strong, nonatomic) BTUser *user;
 
 @end

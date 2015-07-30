@@ -9,7 +9,7 @@
 #import "BTMPCViewController.h"
 #import "AppDelegate.h"
 #import "BTMPCHandler.h"
-#import "BTParticipateInConversationViewController.h"
+#import "BTChatViewController.h"
 #import <UICKeyChainStore.h>
 
 @interface BTMPCViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -17,7 +17,7 @@
 @property (strong, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) UILocalNotification *expireNotification;
 @property (nonatomic, assign) NSUInteger taskId;
-@property (nonatomic, strong) BTParticipateInConversationViewController *participateViewController;
+@property (nonatomic, strong) BTChatViewController *participateViewController;
 
 @end
 
@@ -84,7 +84,7 @@ static UIFont *lightFont;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(peerChangedStateWithNotification:)
-                                                 name:@"MPCDemo_DidChangeStateNotification"
+                                                 name:@"MCDidChangeStateNotification"
                                                object:nil];
     
     self.title = NSLocalizedString(@"Options", @"Options");
@@ -240,7 +240,7 @@ static UIFont *lightFont;
 }
 
 - (void)startConversation{
-    BTParticipateInConversationViewController *participateVC = [[BTParticipateInConversationViewController alloc] init];
+    BTChatViewController *participateVC = [[BTChatViewController alloc] init];
     [self.navigationController pushViewController:participateVC animated:YES];
 }
 
@@ -251,20 +251,20 @@ static UIFont *lightFont;
     NSString *person = [[self getConnectedPeers][row] displayName];
     
     if (self.participateViewController == nil) {
-        self.participateViewController = [[BTParticipateInConversationViewController alloc] init];
+        self.participateViewController = [[BTChatViewController alloc] init];
         [self.navigationController pushViewController:self.participateViewController animated:YES];
         self.participateViewController.title = person;
     }
 }
 
-//- (BTParticipateInConversationViewController *)participateViewController
+//- (BTChatViewController *)participateViewController
 //{
 //    if (!participateViewController)
 //    {
-//        BTParticipateInConversationViewController = [[BTParticipateInConversationViewController alloc] init];
+//        BTChatViewController = [[BTChatViewController alloc] init];
 //    }
 //    
-//    return BTParticipateInConversationViewController;
+//    return BTChatViewController;
 //}
 
 

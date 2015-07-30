@@ -7,6 +7,7 @@
 //
 
 #import "BTMPCHandler.h"
+#import "BTDataSource.h"
 #import <UICKeyChainStore.h>
 
 @implementation BTMPCHandler
@@ -85,7 +86,7 @@
                                 @"state" : @(state) };
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"MPCDemo_DidChangeStateNotification"
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidChangeStateNotification"
                                                             object:nil
                                                           userInfo:userInfo];
     });
@@ -98,9 +99,10 @@
     
     NSDictionary *userInfo = @{ @"data": data,
                                 @"peerID": peerID };
+    [[BTDataSource sharedInstance].messages addObject:userInfo];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"MPCDemo_DidReceiveDataNotification"
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"
                                                             object:nil
                                                           userInfo:userInfo];
     });
