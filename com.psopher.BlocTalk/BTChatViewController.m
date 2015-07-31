@@ -26,7 +26,7 @@
     [super viewDidLoad];
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    self.title = self.channelName;
+    self.title = self.user.username;
     [self.navigationController.navigationBar setHidden:NO];
     
     /**
@@ -77,6 +77,8 @@
     
     //removes the attachment button
     self.inputToolbar.contentView.leftBarButtonItem = nil;
+    
+    NSLog(@"This method fired: viewDidLoad");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -98,6 +100,8 @@
     [self.appDelegate.mpcHandler setupPeerWithDisplayName:self.user.username];
     [self.appDelegate.mpcHandler advertiseSelf:YES];
     [self.appDelegate.mpcHandler setupBrowser];
+    
+    NSLog(@"This method fired: viewDidAppear");
 }
 
 #pragma mark - JSQMessagesViewController method overrides
@@ -134,6 +138,8 @@
         [self finishSendingMessage];
         
     }
+    
+    NSLog(@"This method fired: didPressSendButton");
 }
 
 #pragma mark - MCManager Notification handlers
@@ -190,7 +196,7 @@
 //            
 //        }];
 //    }
-    
+    NSLog(@"This method fired: peerDidReceiveDataWithNotification");
 }
 
 - (void)didReceiveInvitationNotification
@@ -202,6 +208,8 @@
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.collectionView reloadData];
     }];
+    
+    NSLog(@"This method fired: didReceiveInvitationNotification");
 }
 
 
@@ -210,6 +218,10 @@
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%@", [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item]);
+    
+    NSLog(@"This method fired: messageDataForItemAtIndexPath");
+    
     return [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
 }
 
@@ -224,11 +236,13 @@
     
     JSQMessage *message = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
     
+    NSLog(@"This method fired: messageBubbleImageDataForItemAtIndexPath");
+    
     if ([message.senderId isEqualToString:self.senderId]) {
         return [BTDataSource sharedInstance].outgoingBubbleImageData;
+    } else {
+        return [BTDataSource sharedInstance].incomingBubbleImageData;
     }
-    
-    return [BTDataSource sharedInstance].incomingBubbleImageData;
 }
 
 - (id<JSQMessageAvatarImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView avatarImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -266,6 +280,7 @@
         }
     }
     
+    NSLog(@"This method fired: avatarImageDataForItemAtIndexPath");
     
     return [[BTDataSource sharedInstance].avatars objectForKey:message.senderId];
 }
@@ -282,6 +297,8 @@
         JSQMessage *message = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
+    
+    NSLog(@"This method fired: attributedTextForCellTopLabelAtIndexPath");
     
     return nil;
 }
@@ -307,11 +324,15 @@
     /**
      *  Don't specify attributes to use the defaults.
      */
+    
+    NSLog(@"This method fired: attributedTextForMessageBubbleTopLabelAtIndexPath");
+    
     return [[NSAttributedString alloc] initWithString:message.senderDisplayName];
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"This method fired: attributedTextForCellBottomLabelAtIndexPath");
     return nil;
 }
 
@@ -319,6 +340,8 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    
+    NSLog(@"The number of collection view items: %ld", [[BTDataSource sharedInstance].messages count]);
     return [[BTDataSource sharedInstance].messages count];
 }
 
@@ -353,10 +376,12 @@
         else {
             cell.textView.textColor = [UIColor whiteColor];
         }
-        
+
         cell.textView.linkTextAttributes = @{ NSForegroundColorAttributeName : cell.textView.textColor,
                                               NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle | NSUnderlinePatternSolid) };
     }
+    
+    NSLog(@"This method fired: cellForItemAtIndexPath");
     
     return cell;
 }
@@ -384,6 +409,8 @@
         return kJSQMessagesCollectionViewCellLabelHeightDefault;
     }
     
+    NSLog(@"This method fired: heightForCellTopLabelAtIndexPath");
+    
     return 0.0f;
 }
 
@@ -405,12 +432,16 @@
         }
     }
     
+    NSLog(@"This method fired: heightForMessageBubbleTopLabelAtIndexPath");
+    
     return kJSQMessagesCollectionViewCellLabelHeightDefault;
 }
 
 - (CGFloat)collectionView:(JSQMessagesCollectionView *)collectionView
                    layout:(JSQMessagesCollectionViewFlowLayout *)collectionViewLayout heightForCellBottomLabelAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"This method fired: heightForCellBottomLabelAtIndexPath");
+    
     return 0.0f;
 }
 

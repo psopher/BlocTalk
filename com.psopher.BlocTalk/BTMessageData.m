@@ -20,6 +20,9 @@
     if (self) {
         _channelName = channelName;
     }
+    
+    NSLog(@"%@", text);
+    
     return self;
 }
 

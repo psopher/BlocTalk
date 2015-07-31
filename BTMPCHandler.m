@@ -7,6 +7,7 @@
 //
 
 #import "BTMPCHandler.h"
+#import "BTMessageData.h"
 #import "BTDataSource.h"
 #import <UICKeyChainStore.h>
 
@@ -99,6 +100,7 @@
     
     NSDictionary *userInfo = @{ @"data": data,
                                 @"peerID": peerID };
+    
     [[BTDataSource sharedInstance].messages addObject:userInfo];
     
     dispatch_async(dispatch_get_main_queue(), ^{
