@@ -16,11 +16,12 @@
 @property (strong, nonatomic) UIButton *contactsListButton;
 @property (strong, nonatomic) UITextView *contactsList;
 @property (strong, nonatomic) UITableView *tableOfContacts;
-//@property (strong, nonatomic) NSMutableArray *listOfConnectedDisplayNames;
+
+@property (strong, nonatomic) NSString *person;
 
 
 - (void)searchForPlayers:(id)sender;
 - (void) switchHasSwitched;
-- (void) startConversation;
+//- (void) startConversation;
 
 @end

@@ -10,12 +10,15 @@
 #import <JSQMessages.h>
 #import "BTDataSource.h"
 
+@class BTUser;
+
 #import "NSUserDefaults+DemoSettings.h"
 
 @interface BTChatViewController : JSQMessagesViewController
 
-//@property (strong, nonatomic) BTDemoModelData *demoData;
 @property (strong, nonatomic) NSString *channelName;
 @property (strong, nonatomic) BTUser *user;
+@property (nonatomic, assign) BOOL finishedSending;
+@property (nonatomic, assign) BOOL finishedReceiving;
 
 @end

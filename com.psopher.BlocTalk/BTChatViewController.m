@@ -10,12 +10,14 @@
 #import "BTMPCHandler.h"
 #import "BTUser.h"
 #import "BTMessageData.h"
-#import "BTDataSource.h"
+//#import "BTDataSource.h"
 #import "AppDelegate.h"
+#import "BTMPCViewController.h"
 
 @interface BTChatViewController ()
 
 @property (strong, nonatomic) AppDelegate* appDelegate;
+//@property (strong, nonatomic) MCPeerID* user;
 
 @end
 
@@ -26,17 +28,23 @@
     [super viewDidLoad];
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    self.title = self.user.username;
     [self.navigationController.navigationBar setHidden:NO];
     
     /**
      *  You MUST set your senderId and display name
      */
 //    NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-    self.user = [[BTDataSource sharedInstance] randomUser];
+//    self.user = [[BTDataSource sharedInstance] userDisplayName];
+    self.user = [[BTMPCHandler sharedInstance] userDisplayName];
+//    self.user = [[BTDataSource sharedInstance] randomUser];
+//    self.user = [self.appDelegate.mpcHandler peerID];
     
     self.senderId = [self.user.UUID UUIDString];
-    self.senderDisplayName = self.user.username;
+//    self.senderDisplayName = self.user.username;
+    self.senderDisplayName = self.title;
+    
+    self.finishedSending = 0;
+    self.finishedReceiving = 0;
     
     
     /**
@@ -112,14 +120,8 @@
          senderDisplayName:(NSString *)senderDisplayName
                       date:(NSDate *)date
 {
-    /**
-     *  Sending a message. Your implementation of this method should do *at least* the following:
-     *
-     *  1. Play sound (optional)
-     *  2. Add new id<JSQMessageData> object to your data source
-     *  3. Call `finishSendingMessage`
-     */
-    [JSQSystemSoundPlayer jsq_playMessageSentSound];
+    
+    self.finishedSending = 0;
     
     if (text.length > 0)
     {
@@ -132,10 +134,19 @@
         [self.appDelegate.mpcHandler.session sendData:messageData toPeers:self.appDelegate.mpcHandler.session.connectedPeers withMode:MCSessionSendDataUnreliable error:&error];
         NSLog(@"Error %@", error.localizedDescription);
         
-        [[BTDataSource sharedInstance].messages addObject:message];
+        [[BTMPCHandler sharedInstance].messages addObject:message];
         
         //contains collectionView reloadData
         [self finishSendingMessage];
+        self.finishedSending = 1;
+        
+        NSDictionary *sentMessage = @{ @"data": messageData};
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidSendNewMessage"
+                                                                object:nil
+                                                              userInfo:sentMessage];
+        });
         
     }
     
@@ -159,43 +170,12 @@
 
 - (void)peerDidReceiveDataWithNotification:(NSNotification *)notification
 {
-//    NSLog(@"peerDidReceiveDataWithNotification %@", notification);
-    //parse the notification for the data and the displayName
-//    NSLog(@"extract data from notification");
-//    NSData *messageData = notification.userInfo[@"data"];
-//    NSLog(@"unarchive object");
+
+    self.finishedReceiving = 0;
     [self.collectionView reloadData];
+    self.finishedReceiving = 1;
     
-//    NSArray *messages = [NSKeyedUnarchiver unarchiveObjectWithData:messageData];
-//
-//    if ([messages count] > 0 && [((BTMessageData *) messages[0]).channelName isEqualToString:self.channelName]) {
-//        if ([messages count] == 1)
-//        {
-//            NSLog(@"add one message to recentMessages");
-//            [[BTDataSource sharedInstance].messages addObject:messages[0]];
-//            
-//            NSString *username = ((BTMessageData *) messages[0]).senderDisplayName;
-//            NSUUID *uuid = [[NSUUID alloc] initWithUUIDString:((BTMessageData *) messages[0]).senderId];
-//            
-//            BTUser *sender = [[BTUser alloc] initWithUsername:username UUID:uuid];
-//            
-//            [[BTDataSource sharedInstance] addPeerWithUser:sender];
-//            
-//            
-//        }
-//        else{
-//            NSLog(@"add recent messages to an empty array");
-//            [BTDataSource sharedInstance].messages = [NSMutableArray arrayWithArray:messages];
-//        }
-//        
-//        
-//        
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            [self.collectionView reloadData];
-//            [self scrollToBottomAnimated:YES];
-//            
-//        }];
-//    }
+
     NSLog(@"This method fired: peerDidReceiveDataWithNotification");
 }
 
@@ -218,11 +198,27 @@
 
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@", [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item]);
+    
+    self.finishedReceiving = 1;
+    
+        NSDictionary *receivedMessage = @{ @"data": [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item]};
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveNewMessage"
+                                                                object:nil
+                                                              userInfo:receivedMessage];
+        });
+    
+    NSLog(@"This should be legible if serializaion worked: %@", [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item]);
     
     NSLog(@"This method fired: messageDataForItemAtIndexPath");
     
-    return [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+    
+    return [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+}
+
+- (void) parseDataUserInfoDictionary:(NSDictionary *) unserializedMessageData fromRequestWithParameters:(NSDictionary *)parameters {
+    NSLog(@"%@", unserializedMessageData);
 }
 
 - (id<JSQMessageBubbleImageDataSource>)collectionView:(JSQMessagesCollectionView *)collectionView messageBubbleImageDataForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -234,14 +230,14 @@
      *  Otherwise, return your previously created bubble image data objects.
      */
     
-    JSQMessage *message = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
     
     NSLog(@"This method fired: messageBubbleImageDataForItemAtIndexPath");
     
     if ([message.senderId isEqualToString:self.senderId]) {
-        return [BTDataSource sharedInstance].outgoingBubbleImageData;
+        return [BTMPCHandler sharedInstance].outgoingBubbleImageData;
     } else {
-        return [BTDataSource sharedInstance].incomingBubbleImageData;
+        return [BTMPCHandler sharedInstance].incomingBubbleImageData;
     }
 }
 
@@ -267,7 +263,7 @@
      *
      *  Override the defaults in `viewDidLoad`
      */
-    JSQMessage *message = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
     
     if ([message.senderId isEqualToString:self.senderId]) {
         if (![NSUserDefaults outgoingAvatarSetting]) {
@@ -282,7 +278,7 @@
     
     NSLog(@"This method fired: avatarImageDataForItemAtIndexPath");
     
-    return [[BTDataSource sharedInstance].avatars objectForKey:message.senderId];
+    return [[BTMPCHandler sharedInstance].avatars objectForKey:message.senderId];
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
@@ -294,7 +290,7 @@
      *  Show a timestamp for every 3rd message
      */
     if (indexPath.item % 3 == 0) {
-        JSQMessage *message = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+        JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
     
@@ -305,7 +301,7 @@
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
-    JSQMessage *message = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
     
     /**
      *  iOS7-style sender name labels
@@ -315,7 +311,7 @@
     }
     
     if (indexPath.item - 1 > 0) {
-        JSQMessage *previousMessage = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item - 1];
+        JSQMessage *previousMessage = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item - 1];
         if ([[previousMessage senderId] isEqualToString:message.senderId]) {
             return nil;
         }
@@ -341,8 +337,8 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    NSLog(@"The number of collection view items: %ld", [[BTDataSource sharedInstance].messages count]);
-    return [[BTDataSource sharedInstance].messages count];
+    NSLog(@"The number of collection view items: %ld", [[BTMPCHandler sharedInstance].messages count]);
+    return [[BTMPCHandler sharedInstance].messages count];
 }
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -366,7 +362,7 @@
      *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
      */
     
-    JSQMessage *msg = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *msg = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
     
     if (!msg.isMediaMessage) {
         
@@ -420,13 +416,13 @@
     /**
      *  iOS7-style sender name labels
      */
-    JSQMessage *currentMessage = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *currentMessage = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
     if ([[currentMessage senderId] isEqualToString:self.senderId]) {
         return 0.0f;
     }
     
     if (indexPath.item - 1 > 0) {
-        JSQMessage *previousMessage = [[BTDataSource sharedInstance].messages objectAtIndex:indexPath.item - 1];
+        JSQMessage *previousMessage = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item - 1];
         if ([[previousMessage senderId] isEqualToString:[currentMessage senderId]]) {
             return 0.0f;
         }

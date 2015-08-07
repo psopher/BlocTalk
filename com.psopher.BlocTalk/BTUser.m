@@ -28,8 +28,10 @@
 -(instancetype)initWithUsername:(NSString *)username UUID:(NSUUID *)UUID;
 {
     self = [super init];
+    
     if (self) {
         _username = username;
+//        self.username = [UIDevice currentDevice].name;
         _UUID = UUID;
     }
     return self;

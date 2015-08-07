@@ -8,15 +8,22 @@
 
 #import "BTConversationsTableViewCell.h"
 #import "BTMedia.h"
-#import "BTMessageContent.h"
+//#import "BTMessageContent.h"
 #import "BTUser.h"
+#import "BTMPCHandler.h"
+#import "BTMessageData.h"
 //#import "BTMultiPeerConnectivity.h"
+#import "BTChatViewController.h"
 
 @interface BTConversationsTableViewCell ()
 
-@property (nonatomic, strong) UIImageView *mediaImageView;
+//@property (nonatomic, strong) UIImageView *mediaImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) BTChatViewController* sentNewMessage;
+@property (nonatomic, strong) BTChatViewController* receivedNewMessage;
+@property (nonatomic, assign) BOOL cellShouldUpdate;
+
 
 @end
 
@@ -34,18 +41,24 @@ static NSParagraphStyle *paragraphStyle;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.mediaImageView = [[UIImageView alloc] init];
+//        self.mediaImageView = [[UIImageView alloc] init];
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.numberOfLines = 0;
         self.messageLabel = [[UILabel alloc] init];
         self.messageLabel.numberOfLines = 0;
         
-//        for (UIView *view in @[self.mediaImageView]) {
-//            [self.contentView addSubview:view];
-//        }
-        
-        for (UIView *view in @[self.usernameLabel, self.messageLabel, self.mediaImageView]) {
+//        for (UIView *view in @[self.usernameLabel, self.messageLabel, self.mediaImageView]) {
+        for (UIView *view in @[self.usernameLabel, self.messageLabel]) {
             [self.contentView addSubview:view];
+        }
+        
+        self.receivedNewMessage = [[BTChatViewController alloc] init];
+        self.sentNewMessage = [[BTChatViewController alloc] init];
+        
+        if (self.sentNewMessage.finishedSending || self.receivedNewMessage.finishedReceiving) {
+            self.cellShouldUpdate = 1;
+        } else {
+            self.cellShouldUpdate = 0;
         }
     }
     return self;
@@ -67,30 +80,57 @@ static NSParagraphStyle *paragraphStyle;
     paragraphStyle = mutableParagraphStyle;
 }
 
+
+
+//- (BOOL) cellShouldUpdate {
+//    if ([self.receivedNewMessage finishSendingMessageAnimated:YES]) {
+//        return 1;
+//    } else {
+//        return 0;
+//    }
+//}
+
 - (NSAttributedString *) usernameString {
-    CGFloat usernameFontSize = 15;
     
-    // Make a string that says "username text"
-    NSString *baseString = [NSString stringWithFormat:@"%@", self.mediaItem.user.username];
+    if (self.cellShouldUpdate) {
+        
+        CGFloat usernameFontSize = 15;
     
-    // Make an attributed string, with the "username" bold
-    NSMutableAttributedString *mutableUsernameString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : [boldFont fontWithSize:usernameFontSize], NSParagraphStyleAttributeName : paragraphStyle}];
+        // Make a string that says "username text"
     
-    return mutableUsernameString;
+        NSString *baseString = [NSString stringWithFormat:@"%@", [[BTMPCHandler sharedInstance].messages objectAtIndex:1]];
+    
+
+    
+        // Make an attributed string, with the "username" bold
+        NSMutableAttributedString *mutableUsernameString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : [boldFont fontWithSize:usernameFontSize], NSParagraphStyleAttributeName : paragraphStyle}];
+    
+        return mutableUsernameString;
+        
+    } else {
+        return nil;
+    }
 }
 
 - (NSAttributedString *) messageString {
-    NSMutableAttributedString *messageString = [[NSMutableAttributedString alloc] init];
     
-    for (BTMessageContent *message in self.mediaItem.messageContent) {
-        NSString *baseString = [NSString stringWithFormat:@"%@", message.text];
+    if (self.cellShouldUpdate) {
+    
+        NSMutableAttributedString *messageString = [[NSMutableAttributedString alloc] init];
+    
+        //    for (BTMessageContent *message in self.mediaItem.messageContent) {
+        //        NSString *baseString = [NSString stringWithFormat:@"%@", message.text];
+        NSString *baseString = [NSString stringWithFormat:@"%@", [[BTMPCHandler sharedInstance].messages objectAtIndex:4]];
         
         NSMutableAttributedString *oneCommentString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : lightFont, NSParagraphStyleAttributeName : paragraphStyle}];
         
         [messageString appendAttributedString:oneCommentString];
-    }
+//    }
     
-    return messageString;
+        return messageString;
+    } else {
+        return nil;
+    }
 }
 
 - (CGSize) sizeOfString:(NSAttributedString *)string {
@@ -111,8 +151,8 @@ static NSParagraphStyle *paragraphStyle;
 - (void) layoutSubviews {
     [super layoutSubviews];
     
-    CGFloat imageHeight = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.imageView.bounds);
-    self.mediaImageView.frame = CGRectMake(0, 0, 70, 70);
+//    CGFloat imageHeight = self.mediaItem.image.size.height / self.mediaItem.image.size.width * CGRectGetWidth(self.imageView.bounds);
+//    self.mediaImageView.frame = CGRectMake(0, 0, 70, 70);
     
     CGSize sizeOfUsernameLabel = [self sizeOfString:self.usernameLabel.attributedText];
     
@@ -136,7 +176,7 @@ static NSParagraphStyle *paragraphStyle;
 
 - (void) setMediaItem:(BTMedia *)mediaItem {
     _mediaItem = mediaItem;
-    self.mediaImageView.image = _mediaItem.image;
+//    self.mediaImageView.image = _mediaItem.image;
     self.usernameLabel.attributedText = [self usernameString];
     self.messageLabel.attributedText = [self messageString];
 }

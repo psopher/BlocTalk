@@ -239,33 +239,19 @@ static UIFont *lightFont;
     return cell;
 }
 
-- (void)startConversation{
-    BTChatViewController *participateVC = [[BTChatViewController alloc] init];
-    [self.navigationController pushViewController:participateVC animated:YES];
-}
-
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSInteger row = [indexPath row];
     
-    NSString *person = [[self getConnectedPeers][row] displayName];
+    self.person = [[self getConnectedPeers][row] displayName];
     
     if (self.participateViewController == nil) {
         self.participateViewController = [[BTChatViewController alloc] init];
+        self.participateViewController.title = self.person;
         [self.navigationController pushViewController:self.participateViewController animated:YES];
-        self.participateViewController.title = person;
+//        self.participateViewController.title = person;
     }
 }
-
-//- (BTChatViewController *)participateViewController
-//{
-//    if (!participateViewController)
-//    {
-//        BTChatViewController = [[BTChatViewController alloc] init];
-//    }
-//    
-//    return BTChatViewController;
-//}
 
 
 //- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
