@@ -10,7 +10,7 @@
 #import "BTMPCHandler.h"
 #import "BTUser.h"
 #import "BTMessageData.h"
-//#import "BTDataSource.h"
+#import "BTDataSource.h"
 #import "AppDelegate.h"
 #import "BTMPCViewController.h"
 
@@ -29,22 +29,23 @@
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
     [self.navigationController.navigationBar setHidden:NO];
+    self.title = self.conversation.conversationName;
+    //        self.participateViewController.title = self.person;
     
     /**
      *  You MUST set your senderId and display name
      */
 //    NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
 //    self.user = [[BTDataSource sharedInstance] userDisplayName];
-    self.user = [[BTMPCHandler sharedInstance] userDisplayName];
 //    self.user = [[BTDataSource sharedInstance] randomUser];
 //    self.user = [self.appDelegate.mpcHandler peerID];
     
-    self.senderId = [self.user.UUID UUIDString];
+    self.senderId = [[BTDataSource sharedInstance].user.UUID UUIDString];
 //    self.senderDisplayName = self.user.username;
-    self.senderDisplayName = self.title;
+    self.senderDisplayName = [BTDataSource sharedInstance].user.username;
     
-    self.finishedSending = 0;
-    self.finishedReceiving = 0;
+    self.finishedSending = [NSNumber numberWithFloat:0];
+    self.finishedReceiving = [NSNumber numberWithFloat:0];
     
     
     /**
@@ -105,7 +106,7 @@
     
 //    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
 //    BTUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    [self.appDelegate.mpcHandler setupPeerWithDisplayName:self.user.username];
+    [self.appDelegate.mpcHandler setupPeerWithDisplayName:[BTDataSource sharedInstance].user.username];
     [self.appDelegate.mpcHandler advertiseSelf:YES];
     [self.appDelegate.mpcHandler setupBrowser];
     
@@ -121,12 +122,12 @@
                       date:(NSDate *)date
 {
     
-    self.finishedSending = 0;
+    self.finishedSending = [NSNumber numberWithFloat:0];
     
     if (text.length > 0)
     {
         
-        BTMessageData *message = [[BTMessageData alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text channelName:self.channelName];
+        BTMessageData *message = [[BTMessageData alloc] initWithSenderId:senderId senderDisplayName:senderDisplayName date:date text:text channelName:[BTDataSource sharedInstance].user.username];
         NSData *messageData = [NSKeyedArchiver archivedDataWithRootObject:@[message]];
         
         //send the message
@@ -134,13 +135,16 @@
         [self.appDelegate.mpcHandler.session sendData:messageData toPeers:self.appDelegate.mpcHandler.session.connectedPeers withMode:MCSessionSendDataUnreliable error:&error];
         NSLog(@"Error %@", error.localizedDescription);
         
-        [[BTMPCHandler sharedInstance].messages addObject:message];
+        [self.conversation.messages addObject:message];
+//        [[BTDataSource sharedInstance].messages addObject:message];
         
         //contains collectionView reloadData
         [self finishSendingMessage];
-        self.finishedSending = 1;
+        self.finishedSending = [NSNumber numberWithFloat:1];
         
         NSDictionary *sentMessage = @{ @"data": messageData};
+        
+//        [[BTMPCHandler sharedInstance] addData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidSendNewMessage"
@@ -171,9 +175,9 @@
 - (void)peerDidReceiveDataWithNotification:(NSNotification *)notification
 {
 
-    self.finishedReceiving = 0;
+    self.finishedReceiving = [NSNumber numberWithFloat:0];
     [self.collectionView reloadData];
-    self.finishedReceiving = 1;
+    self.finishedReceiving = [NSNumber numberWithFloat:1];
     
 
     NSLog(@"This method fired: peerDidReceiveDataWithNotification");
@@ -199,9 +203,8 @@
 - (id<JSQMessageData>)collectionView:(JSQMessagesCollectionView *)collectionView messageDataForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    self.finishedReceiving = 1;
     
-        NSDictionary *receivedMessage = @{ @"data": [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item]};
+        NSDictionary *receivedMessage = @{ @"data": [self.conversation.messages objectAtIndex:indexPath.item]};
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveNewMessage"
@@ -209,12 +212,12 @@
                                                               userInfo:receivedMessage];
         });
     
-    NSLog(@"This should be legible if serializaion worked: %@", [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item]);
+    NSLog(@"This should be legible if serializaion worked: %@", [self.conversation.messages objectAtIndex:indexPath.item]);
     
     NSLog(@"This method fired: messageDataForItemAtIndexPath");
     
     
-    return [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+    return [self.conversation.messages objectAtIndex:indexPath.item];
 }
 
 - (void) parseDataUserInfoDictionary:(NSDictionary *) unserializedMessageData fromRequestWithParameters:(NSDictionary *)parameters {
@@ -230,14 +233,14 @@
      *  Otherwise, return your previously created bubble image data objects.
      */
     
-    JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
     NSLog(@"This method fired: messageBubbleImageDataForItemAtIndexPath");
     
     if ([message.senderId isEqualToString:self.senderId]) {
-        return [BTMPCHandler sharedInstance].outgoingBubbleImageData;
+        return [BTDataSource sharedInstance].outgoingBubbleImageData;
     } else {
-        return [BTMPCHandler sharedInstance].incomingBubbleImageData;
+        return [BTDataSource sharedInstance].incomingBubbleImageData;
     }
 }
 
@@ -263,7 +266,7 @@
      *
      *  Override the defaults in `viewDidLoad`
      */
-    JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
     if ([message.senderId isEqualToString:self.senderId]) {
         if (![NSUserDefaults outgoingAvatarSetting]) {
@@ -278,7 +281,7 @@
     
     NSLog(@"This method fired: avatarImageDataForItemAtIndexPath");
     
-    return [[BTMPCHandler sharedInstance].avatars objectForKey:message.senderId];
+    return [[BTDataSource sharedInstance].avatars objectForKey:message.senderId];
 }
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForCellTopLabelAtIndexPath:(NSIndexPath *)indexPath
@@ -290,7 +293,7 @@
      *  Show a timestamp for every 3rd message
      */
     if (indexPath.item % 3 == 0) {
-        JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+        JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
         return [[JSQMessagesTimestampFormatter sharedFormatter] attributedTimestampForDate:message.date];
     }
     
@@ -301,7 +304,7 @@
 
 - (NSAttributedString *)collectionView:(JSQMessagesCollectionView *)collectionView attributedTextForMessageBubbleTopLabelAtIndexPath:(NSIndexPath *)indexPath
 {
-    JSQMessage *message = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *message = [self.conversation.messages objectAtIndex:indexPath.item];
     
     /**
      *  iOS7-style sender name labels
@@ -311,7 +314,7 @@
     }
     
     if (indexPath.item - 1 > 0) {
-        JSQMessage *previousMessage = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item - 1];
+        JSQMessage *previousMessage = [self.conversation.messages objectAtIndex:indexPath.item - 1];
         if ([[previousMessage senderId] isEqualToString:message.senderId]) {
             return nil;
         }
@@ -337,8 +340,8 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    NSLog(@"The number of collection view items: %ld", [[BTMPCHandler sharedInstance].messages count]);
-    return [[BTMPCHandler sharedInstance].messages count];
+    NSLog(@"The number of collection view items: %ld", [self.conversation.messages count]);
+    return [self.conversation.messages count];
 }
 
 - (UICollectionViewCell *)collectionView:(JSQMessagesCollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -362,7 +365,7 @@
      *  Instead, override the properties you want on `self.collectionView.collectionViewLayout` from `viewDidLoad`
      */
     
-    JSQMessage *msg = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *msg = [self.conversation.messages objectAtIndex:indexPath.item];
     
     if (!msg.isMediaMessage) {
         
@@ -416,13 +419,13 @@
     /**
      *  iOS7-style sender name labels
      */
-    JSQMessage *currentMessage = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item];
+    JSQMessage *currentMessage = [self.conversation.messages objectAtIndex:indexPath.item];
     if ([[currentMessage senderId] isEqualToString:self.senderId]) {
         return 0.0f;
     }
     
     if (indexPath.item - 1 > 0) {
-        JSQMessage *previousMessage = [[BTMPCHandler sharedInstance].messages objectAtIndex:indexPath.item - 1];
+        JSQMessage *previousMessage = [self.conversation.messages objectAtIndex:indexPath.item - 1];
         if ([[previousMessage senderId] isEqualToString:[currentMessage senderId]]) {
             return 0.0f;
         }

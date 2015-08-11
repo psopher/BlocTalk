@@ -10,7 +10,7 @@
 #import "BTUser.h"
 #import "BTMessageContent.h"
 #import "BTMedia.h"
-//#import "BTDataSource.h"
+#import "BTDataSource.h"
 #import "BTConversationsTableViewCell.h"
 #import "BTMPCViewController.h"
 #import "AppDelegate.h"
@@ -32,6 +32,8 @@
     self = [super initWithStyle:style];
     if (self) {
         self.optionsVC = [[BTMPCViewController alloc] init];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
     }
     return self;
 }
@@ -48,6 +50,11 @@
     self.navigationItem.title = NSLocalizedString(@"Conversations", @"Conversations");
     self.navigationItem.rightBarButtonItem = startNewConvoButton;
     self.navigationItem.leftBarButtonItem = optionsButton;
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(reloadTableView:)
+//                                                 name:@"MCDidSendNewMessage"
+//                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView:)
@@ -75,7 +82,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     
-    return [BTMPCHandler sharedInstance].mediaItems.count;
+    return [BTDataSource sharedInstance].conversations.count;
 }
 
 
@@ -85,7 +92,7 @@
     // Prof Pic on Left in the tableview cell...
     
     BTConversationsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
-    cell.mediaItem = [BTMPCHandler sharedInstance].mediaItems[indexPath.row];
+    cell.conversation = [BTDataSource sharedInstance].conversations[indexPath.row];
     
     
     return cell;
@@ -97,7 +104,7 @@
     CGFloat padding = 20;
     CGFloat tableViewWidth = viewWidth - padding;
     
-    BTMedia *item = [BTMPCHandler sharedInstance].mediaItems[indexPath.row];
+    BTMedia *item = [BTDataSource sharedInstance].conversations[indexPath.row];
     
     return [BTConversationsTableViewCell heightForMediaItem:item width:tableViewWidth];;
 }
@@ -105,6 +112,9 @@
 - (void) reloadTableView:(NSNotification *)notification {
 
     [self.tableView reloadData];
+    
+    
+    NSLog(@"This method fired: reloadTableView");
     
 }
 

@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class BTMedia;
+@class BTConversation;
 
 @interface BTConversationsTableViewCell : UITableViewCell
 
-+ (CGFloat) heightForMediaItem:(BTMedia *)mediaItem width:(CGFloat)width;
++ (CGFloat) heightForMediaItem:(BTConversation *)conversation width:(CGFloat)width;
 
-@property (nonatomic, strong) BTMedia *mediaItem;
+@property (nonatomic, strong) BTConversation *conversation;
 
 @end

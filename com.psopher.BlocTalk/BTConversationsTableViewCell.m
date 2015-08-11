@@ -52,15 +52,22 @@ static NSParagraphStyle *paragraphStyle;
             [self.contentView addSubview:view];
         }
         
-        self.receivedNewMessage = [[BTChatViewController alloc] init];
-        self.sentNewMessage = [[BTChatViewController alloc] init];
+//        self.receivedNewMessage = [[BTChatViewController alloc] init];
+//        self.sentNewMessage = [[BTChatViewController alloc] init];
         
-        if (self.sentNewMessage.finishedSending || self.receivedNewMessage.finishedReceiving) {
-            self.cellShouldUpdate = 1;
+//        NSNumber* one = [NSNumber numberWithFloat:1];
+        
+//        if (self.sentNewMessage.finishedSending == one || self.receivedNewMessage.finishedReceiving == one) {
+        
+        if ([BTDataSource sharedInstance].conversations != nil) {
+            self.cellShouldUpdate = YES;
         } else {
-            self.cellShouldUpdate = 0;
+            self.cellShouldUpdate = NO;
         }
     }
+    
+    NSLog(@"This method fired: BTConversationsTableViewCell initWithStyle");
+    
     return self;
 }
 
@@ -81,15 +88,6 @@ static NSParagraphStyle *paragraphStyle;
 }
 
 
-
-//- (BOOL) cellShouldUpdate {
-//    if ([self.receivedNewMessage finishSendingMessageAnimated:YES]) {
-//        return 1;
-//    } else {
-//        return 0;
-//    }
-//}
-
 - (NSAttributedString *) usernameString {
     
     if (self.cellShouldUpdate) {
@@ -98,7 +96,7 @@ static NSParagraphStyle *paragraphStyle;
     
         // Make a string that says "username text"
     
-        NSString *baseString = [NSString stringWithFormat:@"%@", [[BTMPCHandler sharedInstance].messages objectAtIndex:1]];
+        NSString *baseString = [NSString stringWithFormat:@"%@", [self.conversation conversationName]];
     
 
     
@@ -118,14 +116,11 @@ static NSParagraphStyle *paragraphStyle;
     
         NSMutableAttributedString *messageString = [[NSMutableAttributedString alloc] init];
     
-        //    for (BTMessageContent *message in self.mediaItem.messageContent) {
-        //        NSString *baseString = [NSString stringWithFormat:@"%@", message.text];
-        NSString *baseString = [NSString stringWithFormat:@"%@", [[BTMPCHandler sharedInstance].messages objectAtIndex:4]];
+        NSString *baseString = [NSString stringWithFormat:@"%@", [self.conversation.messages.lastObject text]];
         
         NSMutableAttributedString *oneCommentString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : lightFont, NSParagraphStyleAttributeName : paragraphStyle}];
         
         [messageString appendAttributedString:oneCommentString];
-//    }
     
         return messageString;
     } else {
@@ -174,14 +169,14 @@ static NSParagraphStyle *paragraphStyle;
 //    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
 }
 
-- (void) setMediaItem:(BTMedia *)mediaItem {
-    _mediaItem = mediaItem;
+- (void) setConversation:(BTConversation *)conversation{
+    _conversation = conversation;
 //    self.mediaImageView.image = _mediaItem.image;
     self.usernameLabel.attributedText = [self usernameString];
     self.messageLabel.attributedText = [self messageString];
 }
 
-+ (CGFloat) heightForMediaItem:(BTMedia *)mediaItem width:(CGFloat)width {
++ (CGFloat) heightForMediaItem:(BTConversation *)conversation width:(CGFloat)width {
     // Make a cell
     BTConversationsTableViewCell *layoutCell = [[BTConversationsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layoutCell"];
     
@@ -189,7 +184,7 @@ static NSParagraphStyle *paragraphStyle;
     layoutCell.frame = CGRectMake(0, 0, width, 100);
     
     // Give it the media item
-    layoutCell.mediaItem = mediaItem;
+    layoutCell.conversation = conversation;
     
     // Make it adjust the image view and labels
     [layoutCell layoutSubviews];

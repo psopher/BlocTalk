@@ -17,7 +17,7 @@
 @property (strong, nonatomic) UITextView *contactsList;
 @property (strong, nonatomic) UITableView *tableOfContacts;
 
-@property (strong, nonatomic) NSString *person;
+//@property (strong, nonatomic) NSString *person;
 
 
 - (void)searchForPlayers:(id)sender;

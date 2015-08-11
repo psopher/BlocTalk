@@ -20,6 +20,7 @@
 		5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D41B028D5800A7BBC2 /* BTUser.m */; };
 		5781D4D81B028DA100A7BBC2 /* BTMessageContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */; };
 		5781D4DE1B02930300A7BBC2 /* BTMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 5781D4DD1B02930300A7BBC2 /* BTMedia.m */; };
+		57C63A621B7A68AE00E325EF /* BTConversation.m in Sources */ = {isa = PBXBuildFile; fileRef = 57C63A611B7A68AE00E325EF /* BTConversation.m */; };
 		57F2E4111B017AE100FFDF10 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4101B017AE100FFDF10 /* main.m */; };
 		57F2E4141B017AE100FFDF10 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F2E4131B017AE100FFDF10 /* AppDelegate.m */; };
 		57F2E41C1B017AE100FFDF10 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F2E41B1B017AE100FFDF10 /* Images.xcassets */; };
@@ -63,6 +64,8 @@
 		5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMessageContent.m; sourceTree = "<group>"; };
 		5781D4DC1B02930300A7BBC2 /* BTMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTMedia.h; sourceTree = "<group>"; };
 		5781D4DD1B02930300A7BBC2 /* BTMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTMedia.m; sourceTree = "<group>"; };
+		57C63A601B7A68AE00E325EF /* BTConversation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTConversation.h; sourceTree = "<group>"; };
+		57C63A611B7A68AE00E325EF /* BTConversation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTConversation.m; sourceTree = "<group>"; };
 		57F2E40B1B017AE100FFDF10 /* com.psopher.BlocTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = com.psopher.BlocTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F2E40F1B017AE100FFDF10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57F2E4101B017AE100FFDF10 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -113,6 +116,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		57C63A5F1B7A682400E325EF /* not advised by ricky */ = {
+			isa = PBXGroup;
+			children = (
+				573B41721B613B2A0079BBF4 /* BTConversationsData.h */,
+				573B41731B613B2A0079BBF4 /* BTConversationsData.m */,
+				5781D4D61B028DA100A7BBC2 /* BTMessageContent.h */,
+				5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */,
+				5781D4DC1B02930300A7BBC2 /* BTMedia.h */,
+				5781D4DD1B02930300A7BBC2 /* BTMedia.m */,
+			);
+			name = "not advised by ricky";
+			sourceTree = "<group>";
+		};
+		57C63A631B7A803B00E325EF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5781D4D31B028D5800A7BBC2 /* BTUser.h */,
+				5781D4D41B028D5800A7BBC2 /* BTUser.m */,
+				573B41751B666F300079BBF4 /* BTMessageData.h */,
+				573B41761B666F300079BBF4 /* BTMessageData.m */,
+				57C63A601B7A68AE00E325EF /* BTConversation.h */,
+				57C63A611B7A68AE00E325EF /* BTConversation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		57F2E4021B017AE100FFDF10 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +165,7 @@
 		57F2E40D1B017AE100FFDF10 /* com.psopher.BlocTalk */ = {
 			isa = PBXGroup;
 			children = (
+				57C63A631B7A803B00E325EF /* Model */,
 				57F2E4121B017AE100FFDF10 /* AppDelegate.h */,
 				57F2E4131B017AE100FFDF10 /* AppDelegate.m */,
 				574BC5151B07A35000D113F6 /* BTMPCViewController.h */,
@@ -144,12 +174,6 @@
 				5709B0EF1B5D485C008A3F43 /* BTChatViewController.m */,
 				573B417B1B6679E60079BBF4 /* NSUserDefaults+DemoSettings.h */,
 				573B417C1B6679E60079BBF4 /* NSUserDefaults+DemoSettings.m */,
-				5781D4D31B028D5800A7BBC2 /* BTUser.h */,
-				5781D4D41B028D5800A7BBC2 /* BTUser.m */,
-				573B41751B666F300079BBF4 /* BTMessageData.h */,
-				573B41761B666F300079BBF4 /* BTMessageData.m */,
-				573B41721B613B2A0079BBF4 /* BTConversationsData.h */,
-				573B41731B613B2A0079BBF4 /* BTConversationsData.m */,
 				574BC5121B079B7B00D113F6 /* BTMPCHandler.h */,
 				574BC5131B079B7B00D113F6 /* BTMPCHandler.m */,
 				5776AA081B03A55B00A47781 /* BTConversationsTableViewCell.h */,
@@ -158,12 +182,9 @@
 				5709B0EC1B5D4786008A3F43 /* BTConversationsTableViewController.m */,
 				5781D4D01B028D2400A7BBC2 /* BTDataSource.h */,
 				5781D4D11B028D2400A7BBC2 /* BTDataSource.m */,
-				5781D4D61B028DA100A7BBC2 /* BTMessageContent.h */,
-				5781D4D71B028DA100A7BBC2 /* BTMessageContent.m */,
-				5781D4DC1B02930300A7BBC2 /* BTMedia.h */,
-				5781D4DD1B02930300A7BBC2 /* BTMedia.m */,
 				57F2E41B1B017AE100FFDF10 /* Images.xcassets */,
 				57F2E41D1B017AE100FFDF10 /* LaunchScreen.xib */,
+				57C63A5F1B7A682400E325EF /* not advised by ricky */,
 				57F2E40E1B017AE100FFDF10 /* Supporting Files */,
 			);
 			path = com.psopher.BlocTalk;
@@ -340,6 +361,7 @@
 				574BC5141B079B7B00D113F6 /* BTMPCHandler.m in Sources */,
 				5781D4D51B028D5800A7BBC2 /* BTUser.m in Sources */,
 				574BC5171B07A35000D113F6 /* BTMPCViewController.m in Sources */,
+				57C63A621B7A68AE00E325EF /* BTConversation.m in Sources */,
 				573B41741B613B2A0079BBF4 /* BTConversationsData.m in Sources */,
 				5709B0F01B5D485C008A3F43 /* BTChatViewController.m in Sources */,
 				573B41771B666F300079BBF4 /* BTMessageData.m in Sources */,

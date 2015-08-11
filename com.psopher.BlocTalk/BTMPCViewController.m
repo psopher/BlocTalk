@@ -11,6 +11,8 @@
 #import "BTMPCHandler.h"
 #import "BTChatViewController.h"
 #import <UICKeyChainStore.h>
+#import "BTConversation.h"
+#import "BTUser.h"
 
 @interface BTMPCViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -77,7 +79,8 @@ static UIFont *lightFont;
     
     self.appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    [self.appDelegate.mpcHandler setupPeerWithDisplayName:[UIDevice currentDevice].name];
+    NSLog(@"%@ name", [[BTDataSource sharedInstance].user username]);
+    [self.appDelegate.mpcHandler setupPeerWithDisplayName: [[BTDataSource sharedInstance].user username]];
     [self.appDelegate.mpcHandler setupSession];
     [self.switchVisible setOn:true];
     [self.appDelegate.mpcHandler advertiseSelf:self.switchVisible.isOn];
@@ -243,14 +246,34 @@ static UIFont *lightFont;
     
     NSInteger row = [indexPath row];
     
-    self.person = [[self getConnectedPeers][row] displayName];
+    NSString* nameOfPeer = [[self getConnectedPeers][row] displayName];
     
     if (self.participateViewController == nil) {
         self.participateViewController = [[BTChatViewController alloc] init];
-        self.participateViewController.title = self.person;
-        [self.navigationController pushViewController:self.participateViewController animated:YES];
-//        self.participateViewController.title = person;
     }
+//        self.participateViewController.title = self.person;
+        BTConversation* conversationToPlant;
+        
+        for (BTConversation* conversation in [BTDataSource sharedInstance].conversations){
+            if ([conversation.conversationName isEqualToString:nameOfPeer]){
+                conversationToPlant = conversation;
+            }
+        }
+        if (conversationToPlant == nil){
+            conversationToPlant = [BTConversation new];
+            conversationToPlant.conversationName = nameOfPeer;
+            [[BTDataSource sharedInstance].conversations addObject:conversationToPlant];
+        }
+
+        self.participateViewController.conversation = conversationToPlant;
+        
+//        [self getConnectedPeers][row] disp
+        [self.navigationController pushViewController:self.participateViewController animated:YES];
+        
+        [self.tableOfContacts deselectRowAtIndexPath:indexPath animated:false];
+        
+//        self.participateViewController.title = person;
+    
 }
 
 
