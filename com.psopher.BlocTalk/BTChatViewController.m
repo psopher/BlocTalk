@@ -13,11 +13,11 @@
 #import "BTDataSource.h"
 #import "AppDelegate.h"
 #import "BTMPCViewController.h"
+#import "BTConversation.h"
 
 @interface BTChatViewController ()
 
 @property (strong, nonatomic) AppDelegate* appDelegate;
-//@property (strong, nonatomic) MCPeerID* user;
 
 @end
 
@@ -30,28 +30,15 @@
     
     [self.navigationController.navigationBar setHidden:NO];
     self.title = self.conversation.conversationName;
-    //        self.participateViewController.title = self.person;
     
     /**
      *  You MUST set your senderId and display name
      */
-//    NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-//    self.user = [[BTDataSource sharedInstance] userDisplayName];
-//    self.user = [[BTDataSource sharedInstance] randomUser];
-//    self.user = [self.appDelegate.mpcHandler peerID];
     
     self.senderId = [[BTDataSource sharedInstance].user.UUID UUIDString];
-//    self.senderDisplayName = self.user.username;
     self.senderDisplayName = [BTDataSource sharedInstance].user.username;
     
-    self.finishedSending = [NSNumber numberWithFloat:0];
-    self.finishedReceiving = [NSNumber numberWithFloat:0];
     
-    
-    /**
-     *  Load up our fake data for the demo
-     */
-//    self.demoData = [[BTDemoModelData alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(peerDidChangeStateWithNotification:)
@@ -70,17 +57,6 @@
     
     
     [self scrollToBottomAnimated:YES];
-    
-    /**
-     *  You can set custom avatar sizes
-     */
-    if (![NSUserDefaults incomingAvatarSetting]) {
-        self.collectionView.collectionViewLayout.incomingAvatarViewSize = CGSizeZero;
-    }
-    
-    if (![NSUserDefaults outgoingAvatarSetting]) {
-        self.collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero;
-    }
     
     self.showLoadEarlierMessagesHeader = NO;
     
@@ -101,11 +77,6 @@
      */
     self.collectionView.collectionViewLayout.springinessEnabled = [NSUserDefaults springinessSetting];
     
-    //    [self.demoData.messages removeAllObjects];
-    //    [self.collectionView reloadData];
-    
-//    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-//    BTUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     [self.appDelegate.mpcHandler setupPeerWithDisplayName:[BTDataSource sharedInstance].user.username];
     [self.appDelegate.mpcHandler advertiseSelf:YES];
     [self.appDelegate.mpcHandler setupBrowser];
@@ -122,8 +93,6 @@
                       date:(NSDate *)date
 {
     
-    self.finishedSending = [NSNumber numberWithFloat:0];
-    
     if (text.length > 0)
     {
         
@@ -136,15 +105,11 @@
         NSLog(@"Error %@", error.localizedDescription);
         
         [self.conversation.messages addObject:message];
-//        [[BTDataSource sharedInstance].messages addObject:message];
         
         //contains collectionView reloadData
         [self finishSendingMessage];
-        self.finishedSending = [NSNumber numberWithFloat:1];
         
         NSDictionary *sentMessage = @{ @"data": messageData};
-        
-//        [[BTMPCHandler sharedInstance] addData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidSendNewMessage"
@@ -161,23 +126,13 @@
 
 - (void)peerDidChangeStateWithNotification:(NSNotification *)notification
 {
-    //    NSLog(@"peerDidChangeStateWithNotification %@", notification);
-    //    if ([notification.userInfo[@"state"] integerValue] == MCSessionStateConnected && self.demoData.messages > 0) {
-    //        //send up to the most recent 30 messages if a new device connects and this device has messages
-    //        NSData *recentMessageData = [NSKeyedArchiver archivedDataWithRootObject:[self.demoData.messages subarrayWithRange:NSMakeRange(0, MIN([self.demoData.messages count], 30))] ];
-    //        NSError *error = nil;
-    //        [self.multipeerManager.session sendData:recentMessageData toPeers:self.multipeerManager.session.connectedPeers withMode:MCSessionSendDataUnreliable error:&error];
-    //        NSLog(@"did send data");
-    //    }
     
 }
 
 - (void)peerDidReceiveDataWithNotification:(NSNotification *)notification
 {
 
-    self.finishedReceiving = [NSNumber numberWithFloat:0];
     [self.collectionView reloadData];
-    self.finishedReceiving = [NSNumber numberWithFloat:1];
     
 
     NSLog(@"This method fired: peerDidReceiveDataWithNotification");
@@ -186,8 +141,6 @@
 - (void)didReceiveInvitationNotification
 {
     NSLog(@"didReceiveInvitation");
-    //    [self.demoData.messages removeAllObjects];
-    //    self.multipeerManager.numberOfMessagesInCurrentChannel = [[NSNumber numberWithInteger:[self.demoData.messages count]] stringValue];
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [self.collectionView reloadData];

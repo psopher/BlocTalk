@@ -7,12 +7,8 @@
 //
 
 #import "BTConversationsTableViewController.h"
-#import "BTUser.h"
-#import "BTMessageContent.h"
-#import "BTMedia.h"
 #import "BTDataSource.h"
 #import "BTConversationsTableViewCell.h"
-#import "BTMPCViewController.h"
 #import "AppDelegate.h"
 #import "BTMPCHandler.h"
 #import "BTMPCViewController.h"
@@ -32,8 +28,6 @@
     self = [super initWithStyle:style];
     if (self) {
         self.optionsVC = [[BTMPCViewController alloc] init];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
     }
     return self;
 }
@@ -50,11 +44,6 @@
     self.navigationItem.title = NSLocalizedString(@"Conversations", @"Conversations");
     self.navigationItem.rightBarButtonItem = startNewConvoButton;
     self.navigationItem.leftBarButtonItem = optionsButton;
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(reloadTableView:)
-//                                                 name:@"MCDidSendNewMessage"
-//                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView:)
@@ -80,7 +69,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
     
     return [BTDataSource sharedInstance].conversations.count;
 }
@@ -88,8 +76,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    
-    // Prof Pic on Left in the tableview cell...
     
     BTConversationsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
     cell.conversation = [BTDataSource sharedInstance].conversations[indexPath.row];
@@ -104,7 +90,7 @@
     CGFloat padding = 20;
     CGFloat tableViewWidth = viewWidth - padding;
     
-    BTMedia *item = [BTDataSource sharedInstance].conversations[indexPath.row];
+    BTConversation *item = [BTDataSource sharedInstance].conversations[indexPath.row];
     
     return [BTConversationsTableViewCell heightForMediaItem:item width:tableViewWidth];;
 }
@@ -119,7 +105,6 @@
 }
 
 - (void) optionsPressed:(UIBarButtonItem *)sender {
-//    BTMPCViewController *optionsVC = [[BTMPCViewController alloc] init];
     [self.navigationController pushViewController:self.optionsVC animated:YES];
 }
 

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class BTMedia;
 @class BTConversation;
 
 @interface BTConversationsTableViewCell : UITableViewCell

@@ -16,11 +16,7 @@
 @interface BTDataSource : NSObject
 
 
-//- (BTUser *) userDisplayName;
-
-//@property (nonatomic, strong, readonly) NSArray *mediaItems;
 @property (strong, nonatomic) NSMutableArray *conversations;
-//@property (strong, nonatomic) NSMutableArray *messages;
 
 @property (strong, nonatomic) NSMutableDictionary *avatars;
 @property (strong, nonatomic) JSQMessagesBubbleImage *outgoingBubbleImageData;
@@ -28,7 +24,6 @@
 @property (strong, nonatomic) NSMutableDictionary *users;
 @property (strong, nonatomic) BTUser *user;
 
-- (void) addPeerWithUser:(BTUser *)user;
 +(instancetype) sharedInstance;
 
 @end

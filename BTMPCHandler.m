@@ -11,11 +11,6 @@
 #import "BTDataSource.h"
 #import <UICKeyChainStore.h>
 
-#import "BTMessageContent.h"
-#import "BTMedia.h"
-
-#import "NSUserDefaults+DemoSettings.h"
-#import "BTUser.h"
 #import "JSQMessagesAvatarImageFactory.h"
 #import "UIColor+JSQMessages.h"
 #import "AppDelegate.h"
@@ -25,7 +20,6 @@
 
 @property (nonatomic, strong) NSArray *mediaItems;
 @property (strong, nonatomic) AppDelegate* appDelegate;
-//@property (nonatomic,strong) BTMessageData* message;
 
 @end
 
@@ -41,11 +35,6 @@
         self.browser = nil;
         self.advertiser = nil;
         
-        NSData *userData = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
-        BTUser *user = [NSKeyedUnarchiver unarchiveObjectWithData:userData];
-        
-        [[BTDataSource sharedInstance] addPeerWithUser:user];
-        
     }
     
     return self;
@@ -58,22 +47,22 @@
 }
 
 - (void)setupSession {
-//    if (self.session == nil) {
-        self.session = [[MCSession alloc] initWithPeer:self.peerID];
-        self.session.delegate = self;
-//    }
+    
+    self.session = [[MCSession alloc] initWithPeer:self.peerID];
+    self.session.delegate = self;
+
 }
 
 - (void)setupBrowser {
-//    if (self.browser == nil) {
-        self.browser = [[MCBrowserViewController alloc] initWithServiceType:@"BT-MPCList" session:_session];
-//    }
+    
+    self.browser = [[MCBrowserViewController alloc] initWithServiceType:@"BT-MPCList" session:_session];
     self.browser.delegate = self;
+
 }
 
 - (void)advertiseSelf:(BOOL)advertise {
     if (advertise) {
-//        NSDictionary *elements = @{ @"numberOfMessagesInCurrentChannel": self.numberOfMessagesInCurrentChannel};
+        
         self.advertiser = [[MCAdvertiserAssistant alloc] initWithServiceType:@"BT-MPCList" discoveryInfo:nil session:self.session];
         self.advertiser.delegate = self;
         [self.advertiser start];
@@ -91,7 +80,6 @@
     self.advertiser.delegate = nil;
     self.advertiser = nil;
     
-//    [self.browser stopBrowsingForPeers];
     self.browser.delegate = nil;
     self.browser = nil;
     
@@ -99,11 +87,6 @@
     self.session.delegate = nil;
     self.session = nil;
 }
-
-//- (void)updateDelegate
-//{
-//    [self.delegate sessionDidChangeState];
-//}
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state {
     
@@ -132,8 +115,6 @@
             [conversation.messages addObject:message];
         }
     }
-    
-//    [[BTDataSource sharedInstance].messages addObject:message];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification"

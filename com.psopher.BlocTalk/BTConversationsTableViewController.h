@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 
-@interface BTConversationsTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface BTConversationsTableViewController : UITableViewController
 
 @end

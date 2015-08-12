@@ -13,6 +13,7 @@
 #import <UICKeyChainStore.h>
 #import "BTConversation.h"
 #import "BTUser.h"
+#import "BTDataSource.h"
 
 @interface BTMPCViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -251,7 +252,7 @@ static UIFont *lightFont;
     if (self.participateViewController == nil) {
         self.participateViewController = [[BTChatViewController alloc] init];
     }
-//        self.participateViewController.title = self.person;
+
         BTConversation* conversationToPlant;
         
         for (BTConversation* conversation in [BTDataSource sharedInstance].conversations){
@@ -266,13 +267,11 @@ static UIFont *lightFont;
         }
 
         self.participateViewController.conversation = conversationToPlant;
-        
-//        [self getConnectedPeers][row] disp
+    
         [self.navigationController pushViewController:self.participateViewController animated:YES];
         
         [self.tableOfContacts deselectRowAtIndexPath:indexPath animated:false];
         
-//        self.participateViewController.title = person;
     
 }
 

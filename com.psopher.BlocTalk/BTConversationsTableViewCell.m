@@ -7,21 +7,15 @@
 //
 
 #import "BTConversationsTableViewCell.h"
-#import "BTMedia.h"
-//#import "BTMessageContent.h"
-#import "BTUser.h"
 #import "BTMPCHandler.h"
-#import "BTMessageData.h"
-//#import "BTMultiPeerConnectivity.h"
+#import "BTDataSource.h"
 #import "BTChatViewController.h"
+#import "BTConversation.h"
 
 @interface BTConversationsTableViewCell ()
 
-//@property (nonatomic, strong) UIImageView *mediaImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
-@property (nonatomic, strong) BTChatViewController* sentNewMessage;
-@property (nonatomic, strong) BTChatViewController* receivedNewMessage;
 @property (nonatomic, assign) BOOL cellShouldUpdate;
 
 
@@ -41,23 +35,14 @@ static NSParagraphStyle *paragraphStyle;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-//        self.mediaImageView = [[UIImageView alloc] init];
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.numberOfLines = 0;
         self.messageLabel = [[UILabel alloc] init];
         self.messageLabel.numberOfLines = 0;
         
-//        for (UIView *view in @[self.usernameLabel, self.messageLabel, self.mediaImageView]) {
         for (UIView *view in @[self.usernameLabel, self.messageLabel]) {
             [self.contentView addSubview:view];
         }
-        
-//        self.receivedNewMessage = [[BTChatViewController alloc] init];
-//        self.sentNewMessage = [[BTChatViewController alloc] init];
-        
-//        NSNumber* one = [NSNumber numberWithFloat:1];
-        
-//        if (self.sentNewMessage.finishedSending == one || self.receivedNewMessage.finishedReceiving == one) {
         
         if ([BTDataSource sharedInstance].conversations != nil) {
             self.cellShouldUpdate = YES;
@@ -171,7 +156,6 @@ static NSParagraphStyle *paragraphStyle;
 
 - (void) setConversation:(BTConversation *)conversation{
     _conversation = conversation;
-//    self.mediaImageView.image = _mediaItem.image;
     self.usernameLabel.attributedText = [self usernameString];
     self.messageLabel.attributedText = [self messageString];
 }

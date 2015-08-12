@@ -8,18 +8,13 @@
 
 #import <JSQMessagesViewController.h>
 #import <JSQMessages.h>
-#import "BTDataSource.h"
-#import "BTConversation.h"
 #import "NSUserDefaults+DemoSettings.h"
 
-@class BTUser;
+@class BTConversation;
 
 @interface BTChatViewController : JSQMessagesViewController
 
 @property (strong, nonatomic) NSString *channelName;
 @property (strong, nonatomic) BTConversation *conversation;
-
-@property (strong, nonatomic) NSNumber *finishedSending;
-@property (strong, nonatomic) NSNumber *finishedReceiving;
 
 @end

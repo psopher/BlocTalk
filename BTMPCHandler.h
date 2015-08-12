@@ -11,8 +11,7 @@
 #import "JSQMessages.h"
 #import "JSQMessagesBubbleImageFactory.h"
 
-@class BTUser;
-@class BTMedia;
+//@class BTUser;
 
 @interface BTMPCHandler : NSObject <MCSessionDelegate, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCBrowserViewControllerDelegate, MCAdvertiserAssistantDelegate>
 
