@@ -25,5 +25,6 @@
 @property (strong, nonatomic) BTUser *user;
 
 +(instancetype) sharedInstance;
+- (void) saveToDisk;
 
 @end

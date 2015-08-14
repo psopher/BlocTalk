@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BTConversation : NSObject
+@interface BTConversation : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSMutableArray* messages;
 @property (strong, nonatomic) NSString* conversationName;
+
+-(instancetype)initWithConversationName:(NSString *)conversationName messages:(NSMutableArray *)messages;
+//-(instancetype)initWithConversationName:(NSString *)conversationName;
 
 @end

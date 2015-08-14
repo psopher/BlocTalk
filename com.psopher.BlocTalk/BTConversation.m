@@ -10,7 +10,45 @@
 
 @implementation BTConversation
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    NSString *conversationName = [aDecoder decodeObjectForKey:@"conversationName"];
+    NSMutableArray *messages = [aDecoder decodeObjectForKey:@"messages"];
+
+    return [self initWithConversationName:conversationName messages:messages];
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.conversationName forKey:@"conversationName"];
+    [aCoder encodeObject:self.messages forKey:@"messages"];
+}
+
+-(instancetype)initWithConversationName:(NSString *)conversationName messages:(NSMutableArray *)messages;
+{
+    self = [super init];
+    
+    if (self) {
+        self.conversationName = conversationName;
+        self.messages = messages;
+    }
+    return self;
+}
+
+//-(instancetype)initWithConversationName:(NSString *)conversationName;
+//{
+//    return [self initWithConversationName:conversationName messages:self.messages];
+//}
+
+//- (instancetype)init
+//{
+//    return [self initWithConversationName:@""];
+//}
+
+
 -(instancetype) init{
+    
+    self.conversationName = [NSString new];
     self.messages = [NSMutableArray new];
     
     return self;

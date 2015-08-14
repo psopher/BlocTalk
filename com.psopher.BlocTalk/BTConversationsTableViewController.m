@@ -45,6 +45,11 @@
     self.navigationItem.rightBarButtonItem = startNewConvoButton;
     self.navigationItem.leftBarButtonItem = optionsButton;
     
+    if ([BTDataSource sharedInstance].conversations != nil) {
+        [self.tableView reloadData];
+        NSLog(@"This code fired: TableView should reload with persisted data");
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView:)
                                                  name:@"MCDidSendNewMessage"
@@ -80,6 +85,9 @@
     BTConversationsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
     cell.conversation = [BTDataSource sharedInstance].conversations[indexPath.row];
     
+    if (cell.conversation != nil) {
+        [[BTDataSource sharedInstance] saveToDisk];
+    }
     
     return cell;
 }
