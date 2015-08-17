@@ -45,11 +45,6 @@
     self.navigationItem.rightBarButtonItem = startNewConvoButton;
     self.navigationItem.leftBarButtonItem = optionsButton;
     
-    if ([BTDataSource sharedInstance].conversations != nil) {
-        [self.tableView reloadData];
-        NSLog(@"This code fired: TableView should reload with persisted data");
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView:)
                                                  name:@"MCDidSendNewMessage"
@@ -57,7 +52,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView:)
-                                                 name:@"MCDidReceiveNewMessage"
+                                                 name:@"MCDidReceiveDataNotification"
                                                object:nil];
 }
 

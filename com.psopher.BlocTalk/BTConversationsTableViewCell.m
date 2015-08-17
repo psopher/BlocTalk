@@ -39,6 +39,8 @@ static NSParagraphStyle *paragraphStyle;
         self.usernameLabel.numberOfLines = 0;
         self.messageLabel = [[UILabel alloc] init];
         self.messageLabel.numberOfLines = 0;
+
+        self.rightUtilityButtons = [self rightButtons];
         
         for (UIView *view in @[self.usernameLabel, self.messageLabel]) {
             [self.contentView addSubview:view];
@@ -49,6 +51,8 @@ static NSParagraphStyle *paragraphStyle;
         } else {
             self.cellShouldUpdate = NO;
         }
+        
+        self.delegate = self;
     }
     
     NSLog(@"This method fired: BTConversationsTableViewCell initWithStyle");
@@ -56,7 +60,21 @@ static NSParagraphStyle *paragraphStyle;
     return self;
 }
 
+- (NSArray *)rightButtons
+{
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
+                                                title:@"Archive"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
+                                                title:@"Delete"];
+    
+    return rightUtilityButtons;
+}
+
 + (void)load {
+    [super load];
     lightFont = [UIFont fontWithName:@"HelveticaNeue-Thin" size:11];
     boldFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:11];
     usernameLabelGray = [UIColor colorWithRed:0.933 green:0.933 blue:0.933 alpha:1]; /*#eeeeee*/
@@ -175,6 +193,12 @@ static NSParagraphStyle *paragraphStyle;
     
     // The height will be wherever the bottom of the messages label is
     return CGRectGetMaxY(layoutCell.messageLabel.frame);
+}
+
+// click event on right utility button
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index{
+    
+    NSLog(@"%i", index);
 }
 
 

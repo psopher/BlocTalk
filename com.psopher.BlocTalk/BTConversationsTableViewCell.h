@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <SWTableViewCell/SWTableViewCell.h>
 
 @class BTConversation;
 
-@interface BTConversationsTableViewCell : UITableViewCell
+@interface BTConversationsTableViewCell : SWTableViewCell <SWTableViewCellDelegate>
 
 + (CGFloat) heightForMediaItem:(BTConversation *)conversation width:(CGFloat)width;
 

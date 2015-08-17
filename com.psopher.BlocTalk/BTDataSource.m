@@ -100,9 +100,11 @@
             if (storedconversations.count > 0) {
                 NSMutableArray *mutableConversations = [storedconversations mutableCopy];
                 
-                [self willChangeValueForKey:@"conversations"];
+//                [self willChangeValueForKey:@"conversations"];
                 self.conversations = mutableConversations;
-                [self didChangeValueForKey:@"conversations"];
+//                [self didChangeValueForKey:@"conversations"];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveDataNotification" object:nil];
             }
 //            else {
 ////                [self populateDataWithParameters:nil completionHandler:nil];

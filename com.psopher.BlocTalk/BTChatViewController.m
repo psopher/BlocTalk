@@ -159,11 +159,11 @@
     
         NSDictionary *receivedMessage = @{ @"data": [self.conversation.messages objectAtIndex:indexPath.item]};
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveNewMessage"
-                                                                object:nil
-                                                              userInfo:receivedMessage];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"MCDidReceiveNewMessage"
+//                                                                object:nil
+//                                                              userInfo:receivedMessage];
+//        });
     
     NSLog(@"This should be legible if serializaion worked: %@", [self.conversation.messages objectAtIndex:indexPath.item]);
     

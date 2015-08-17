@@ -4,6 +4,7 @@
 target 'com.psopher.BlocTalk' do
 pod 'UICKeyChainStore', '~> 2.0'
 pod 'JSQMessagesViewController'
+pod 'SWTableViewCell', '~> 0.3.7'
 end
 
 target 'com.psopher.BlocTalkTests' do
