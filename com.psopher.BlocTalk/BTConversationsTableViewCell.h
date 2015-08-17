@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DAContextMenuCell.h"
 
 @class BTConversation;
 
-@interface BTConversationsTableViewCell : UITableViewCell
+@interface BTConversationsTableViewCell : DAContextMenuCell
 
 + (CGFloat) heightForMediaItem:(BTConversation *)conversation width:(CGFloat)width;
 
 @property (nonatomic, strong) BTConversation *conversation;
+
+@property (strong, nonatomic) UIButton *archiveButton;
+@property (strong, nonatomic) UIButton *moreButton;
 
 @end

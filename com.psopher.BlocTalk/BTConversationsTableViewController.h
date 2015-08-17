@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
+#import "DAContextMenuTableViewController.h"
 
-@interface BTConversationsTableViewController : UITableViewController
+@interface BTConversationsTableViewController : DAContextMenuTableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

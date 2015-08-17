@@ -13,7 +13,9 @@
 #import "BTMPCHandler.h"
 #import "BTMPCViewController.h"
 
-@interface BTConversationsTableViewController ()
+#import "DAContextMenuCell.h"
+
+@interface BTConversationsTableViewController () <DAContextMenuCellDataSource, DAContextMenuCellDelegate>
 
 @property (strong, nonatomic) AppDelegate *appDelegate;
 @property (strong, nonatomic) BTMPCViewController *optionsVC;
@@ -45,9 +47,18 @@
     self.navigationItem.rightBarButtonItem = startNewConvoButton;
     self.navigationItem.leftBarButtonItem = optionsButton;
     
+//    self.refreshControl = [[UIRefreshControl alloc] init];
+//    [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     if ([BTDataSource sharedInstance].conversations != nil) {
+        
         [self.tableView reloadData];
+        
         NSLog(@"This code fired: TableView should reload with persisted data");
+        NSLog(@"The conversations array is: %@", [[BTDataSource sharedInstance].conversations lastObject]);
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -70,10 +81,15 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     //array is your db, here we just need how many they are
+    
+    NSLog(@"This BTConversationsTableViewController code fired: numberOfSectionsInTableView");
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    NSLog(@"This BTConversationsTableViewController code fired: numberOfRowsInSection");
     
     return [BTDataSource sharedInstance].conversations.count;
 }
@@ -89,6 +105,11 @@
         [[BTDataSource sharedInstance] saveToDisk];
     }
     
+    cell.dataSource = self;
+    cell.delegate = self;
+    
+    NSLog(@"This BTConversationsTableViewController code fired: cellForRowAtIndexPath");
+    
     return cell;
 }
 
@@ -100,7 +121,9 @@
     
     BTConversation *item = [BTDataSource sharedInstance].conversations[indexPath.row];
     
-    return [BTConversationsTableViewCell heightForMediaItem:item width:tableViewWidth];;
+    NSLog(@"This BTConversationsTableViewController code fired: heightForRowAtIndexPath");
+    
+    return [BTConversationsTableViewCell heightForMediaItem:item width:tableViewWidth];
 }
 
 - (void) reloadTableView:(NSNotification *)notification {
@@ -112,8 +135,97 @@
     
 }
 
+//- (void) refreshControlDidFire:(UIRefreshControl *) sender {
+//    [[BTDataSource sharedInstance] requestNewItemsWithCompletionHandler:^(NSError *error) {
+//        [sender endRefreshing];
+//    }];
+//}
+
 - (void) optionsPressed:(UIBarButtonItem *)sender {
     [self.navigationController pushViewController:self.optionsVC animated:YES];
+    
+    NSLog(@"This BTConversationsTableViewController code fired: optionsPressed");
+}
+
+#pragma mark * DAContextMenuCell data source
+
+- (CGFloat)contextMenuCell:(DAContextMenuCell *)cell heightForButtonAtIndex:(NSUInteger)index
+{
+    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
+    CGFloat padding = 20;
+    CGFloat buttonWidth = (viewWidth - padding)/5;
+    
+    BTConversation *item = [BTDataSource sharedInstance].conversations[index];
+    
+    NSLog(@"This BTConversationsTableViewController code fired: heightForButtonAtIndex");
+    
+    return [BTConversationsTableViewCell heightForMediaItem:item width:buttonWidth];
+}
+
+- (CGFloat)contextMenuCell:(DAContextMenuCell *)cell widthForButtonAtIndex:(NSUInteger)index
+{
+    CGFloat viewWidth = CGRectGetWidth(self.view.frame);
+    CGFloat padding = 20;
+    CGFloat buttonWidth = (viewWidth - padding)/5;
+    
+    NSLog(@"This BTConversationsTableViewController code fired: widthForButtonAtIndex");
+    
+    return buttonWidth;
+}
+
+- (NSUInteger)numberOfButtonsInContextMenuCell:(DAContextMenuCell *)cell
+{
+    NSLog(@"This BTConversationsTableViewController code fired: numberOfButtonsInContextMenuCell");
+    
+    return 2;
+}
+
+- (UIButton *)contextMenuCell:(BTConversationsTableViewCell *)cell buttonAtIndex:(NSUInteger)index
+{
+    BTConversationsTableViewCell *daCell = [cell isKindOfClass:[BTConversationsTableViewCell class]] ? (BTConversationsTableViewCell *)cell : nil;
+    
+    NSLog(@"This BTConversationsTableViewController code fired: buttonAtIndex");
+    
+    switch (index) {
+        case 0: return daCell.moreButton;
+        case 1: return daCell.archiveButton;
+        default: return nil;
+    }
+}
+
+- (DAContextMenuCellButtonVerticalAlignmentMode)contextMenuCell:(DAContextMenuCell *)cell alignmentForButtonAtIndex:(NSUInteger)index
+{
+    NSLog(@"This BTConversationsTableViewController code fired: alignmentForButtonAtIndex");
+    
+    return DAContextMenuCellButtonVerticalAlignmentModeCenter;
+}
+
+#pragma mark * DAContextMenuCell delegate
+
+- (void)contextMenuCell:(DAContextMenuCell *)cell buttonTappedAtIndex:(NSUInteger)index
+{
+    NSInteger numberOfCells = [BTDataSource sharedInstance].conversations.count;
+    
+    NSLog(@"This BTConversationsTableViewController code fired: buttonTappedAtIndex");
+    
+    switch (index) {
+        case 0: {
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"Cancel"
+                                                       destructiveButtonTitle:nil
+                                                            otherButtonTitles:@"Reply", @"Forward", @"Flag", @"Mark as Unread", @"Move to Junk", @"Move Message...",  nil];
+            [actionSheet showInView:self.view];
+        } break;
+        case 1: {
+            if ([self.tableView indexPathForCell:cell]) {
+                numberOfCells -= 1;
+                [self.tableView deleteRowsAtIndexPaths:@[[self.tableView indexPathForCell:cell]] withRowAnimation:UITableViewRowAnimationFade];
+            }
+        } break;
+        default: break;
+            
+    }
 }
 
 /*

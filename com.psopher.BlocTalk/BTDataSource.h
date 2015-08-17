@@ -13,6 +13,8 @@
 
 @class BTUser;
 
+//typedef void (^BLCNewItemCompletionBlock)(NSError *error);
+
 @interface BTDataSource : NSObject
 
 
@@ -25,6 +27,7 @@
 @property (strong, nonatomic) BTUser *user;
 
 +(instancetype) sharedInstance;
+//- (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
 - (void) saveToDisk;
 
 @end

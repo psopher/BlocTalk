@@ -1,14 +1,17 @@
 PODS:
+  - DAContextMenuTableViewController (1.0.3)
   - JSQMessagesViewController (7.1.0):
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - UICKeyChainStore (2.0.6)
 
 DEPENDENCIES:
+  - DAContextMenuTableViewController
   - JSQMessagesViewController
   - UICKeyChainStore (~> 2.0)
 
 SPEC CHECKSUMS:
+  DAContextMenuTableViewController: df811f6905499187e4578cb91e2330f7c799ae01
   JSQMessagesViewController: ca11f86fa68ca70835f05e169df9244147c1dc40
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   UICKeyChainStore: c5719c814e8bd69e74e4a0fc09daf8f4d6257a59

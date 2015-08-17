@@ -40,6 +40,9 @@ static NSParagraphStyle *paragraphStyle;
         self.messageLabel = [[UILabel alloc] init];
         self.messageLabel.numberOfLines = 0;
         
+        self.archiveButton = [[UIButton alloc] init];
+        self.moreButton = [[UIButton alloc] init];
+        
         for (UIView *view in @[self.usernameLabel, self.messageLabel]) {
             [self.contentView addSubview:view];
         }
@@ -70,6 +73,8 @@ static NSParagraphStyle *paragraphStyle;
     mutableParagraphStyle.paragraphSpacingBefore = 5;
     
     paragraphStyle = mutableParagraphStyle;
+    
+    NSLog(@"This method fired: BTConversationsTableViewCell load");
 }
 
 
@@ -88,6 +93,8 @@ static NSParagraphStyle *paragraphStyle;
         // Make an attributed string, with the "username" bold
         NSMutableAttributedString *mutableUsernameString = [[NSMutableAttributedString alloc] initWithString:baseString attributes:@{NSFontAttributeName : [boldFont fontWithSize:usernameFontSize], NSParagraphStyleAttributeName : paragraphStyle}];
     
+        NSLog(@"This method fired: BTConversationsTableViewCell usernameString");
+        
         return mutableUsernameString;
         
     } else {
@@ -107,6 +114,8 @@ static NSParagraphStyle *paragraphStyle;
         
         [messageString appendAttributedString:oneCommentString];
     
+        NSLog(@"This method fired: BTConversationsTableViewCell messageString");
+        
         return messageString;
     } else {
         return nil;
@@ -124,6 +133,9 @@ static NSParagraphStyle *paragraphStyle;
 - (CGSize)sizeForMessageLabel:(UILabel *)label {
     CGSize constrain = CGSizeMake(label.bounds.size.width, 2 * label.font.lineHeight);
     CGSize size = [label.text sizeWithFont:label.font constrainedToSize:constrain lineBreakMode:UILineBreakModeWordWrap];
+    
+    
+    NSLog(@"This method fired: BTConversationsTableViewCell sizeForMessageLabel");
     
     return size;
 }
@@ -150,6 +162,8 @@ static NSParagraphStyle *paragraphStyle;
     
     self.messageLabel.frame = CGRectMake(70, CGRectGetMaxY(self.usernameLabel.frame), messageLabelWidth, messageLabelHeight);
     
+    NSLog(@"This method fired: BTConversationsTableViewCell layoutSubviews");
+    
     // Hide the line between cells
 //    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, CGRectGetWidth(self.bounds));
 }
@@ -158,9 +172,12 @@ static NSParagraphStyle *paragraphStyle;
     _conversation = conversation;
     self.usernameLabel.attributedText = [self usernameString];
     self.messageLabel.attributedText = [self messageString];
+    
+    NSLog(@"This method fired: BTConversationsTableViewCell setConversation");
 }
 
 + (CGFloat) heightForMediaItem:(BTConversation *)conversation width:(CGFloat)width {
+    
     // Make a cell
     BTConversationsTableViewCell *layoutCell = [[BTConversationsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"layoutCell"];
     
@@ -173,8 +190,19 @@ static NSParagraphStyle *paragraphStyle;
     // Make it adjust the image view and labels
     [layoutCell layoutSubviews];
     
+    NSLog(@"This method fired: BTConversationsTableViewCell heightForMediaItem");
+    
     // The height will be wherever the bottom of the messages label is
     return CGRectGetMaxY(layoutCell.messageLabel.frame);
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+    [super setSelected:selected animated:animated];
+    
+    NSLog(@"This method fired: BTConversationsTableViewCell setSelected");
+    
+    // Configure the view for the selected state
 }
 
 

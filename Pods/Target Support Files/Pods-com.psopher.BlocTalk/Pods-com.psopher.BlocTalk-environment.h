@@ -6,6 +6,12 @@
 // project.
 
 
+// DAContextMenuTableViewController
+#define COCOAPODS_POD_AVAILABLE_DAContextMenuTableViewController
+#define COCOAPODS_VERSION_MAJOR_DAContextMenuTableViewController 1
+#define COCOAPODS_VERSION_MINOR_DAContextMenuTableViewController 0
+#define COCOAPODS_VERSION_PATCH_DAContextMenuTableViewController 3
+
 // JSQMessagesViewController
 #define COCOAPODS_POD_AVAILABLE_JSQMessagesViewController
 #define COCOAPODS_VERSION_MAJOR_JSQMessagesViewController 7

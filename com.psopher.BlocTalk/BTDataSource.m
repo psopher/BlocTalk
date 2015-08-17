@@ -19,8 +19,9 @@
 
 @interface BTDataSource ()
 
-@property (nonatomic, strong) NSArray *mediaItems;
+//@property (nonatomic, strong) NSArray *mediaItems;
 @property (strong, nonatomic) AppDelegate* appDelegate;
+@property (nonatomic, assign) BOOL isRefreshing;
 
 @end
 
@@ -112,5 +113,24 @@
     
     NSLog(@"This method fired: readFilesAtLaunch");
 }
+
+#pragma Pull to refresh
+
+//- (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler {
+//    if (self.isRefreshing == NO) {
+//        self.isRefreshing = YES;
+//        
+//        
+//        
+//        NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"conversationCell"];
+//        [mutableArrayWithKVO insertObject:self.conversations atIndex:0];
+//        
+//        self.isRefreshing = NO;
+//        
+//        if (completionHandler) {
+//            completionHandler(nil);
+//        }
+//    }
+//}
 
 @end
